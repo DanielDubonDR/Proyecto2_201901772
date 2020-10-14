@@ -5,42 +5,52 @@
   <meta charset="utf-8">
   <title>Registrar</title>
   <link href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
+  <script src="{{url_for('static', filename = 'js/validaciones.js')}}"></script>
 </head>
 
 <body>
   <div class="wrapper">
+
     <div class="title">Registrar</div>
-    <form action="#" id="miformulario" onsubmit="verificarPasswords(); return false">
-      <div class="field">
-        <input type="text" required  maxlength="25" >
-        <label>Nombre</label>
-      </div>
-      <div class="field">
-        <input type="text" required>
-        <label>Apellidos</label>
-      </div>
-      <div class="field">
-        <input type="text" id="usuario" required onkeypress="return soloLetras(event);">
-        <label>Usuario</label>
-      </div>
-      <div class="field">
-        <input type="password" id="pass1" required>
-        <label>Contraseña</label>
-      </div>
-      <div class="field">
-        <input type="password" id="pass2" required>
-        <label>Confirmar Contraseña</label>
-        <div id="msg">Las contraseñas no coinciden</div>
-      </div>
+
+      <form action="###" method="POST" onsubmit="return validar();" required>
+        <div class="field">
+          <input type="text"   maxlength="25" required>
+          <label>Nombre</label>
+        </div>
+
+        <div class="field">
+          <input type="text" required >
+          <label>Apellidos</label>
+        </div>
+
+        <div class="field">
+          <input type="text" id="usuario"  onkeypress="return soloLetras(event);" required>
+          <label>Usuario</label>
+        </div>
+
+        <div class="field">
+          <input type="password" id="pass1" required>
+          <label>Contraseña</label>
+        </div>
+
+        <div class="field">
+          <input type="password" id="pass2" required>
+          <label>Confirmar Contraseña</label>
+          <div id="msg">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+
       <div class="field">
         <br>
         <input type="submit" value="Registrar" required >
       </div>
+
       <div class="signup-link">
         <a href="login.html">Iniciar Sesión</a>
       </div>
     </form>
   </div>
 </body>
-<script src="{{url_for('static', filename = 'js/validaciones.js')}}"></script>
 </html>

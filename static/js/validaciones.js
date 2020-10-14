@@ -36,18 +36,24 @@ function soloLetras(e) {
 
 }
 
-function verificarPasswords() {
- 
-  // Ontenemos los valores de los campos de contraseñas 
-  pass1 = document.getElementById('pass1');
-  pass2 = document.getElementById('pass2');
 
-  if (pass1.value != pass2.value) { 
-    
-        document.getElementById('msg').style.display = 'block';
-  }
-  else{
-    document.getElementById('msg').style.display = 'none';
-  }
-
+function validar()
+{
+    var a=document.getElementById("pass1").value;
+    var b=document.getElementById("pass2").value;
+    //alert(a+" "+b);
+    var k=false;
+    if(a!=b)
+    {
+      //alert("diferentes");
+      document.getElementById('msg').style.display = 'block';
+      k= false;
+    }
+    else
+    {
+      //alert("iguales");
+      document.getElementById('msg').style.display = 'none';
+      k= true;
+    }
+    return k;
 }
