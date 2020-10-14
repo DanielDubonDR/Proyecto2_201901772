@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Registrar</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -42,5 +42,5 @@
     </form>
   </div>
 </body>
-<script src="validaciones.js"></script>
+<script src="{{url_for('static', filename = 'js/validaciones.js')}}"></script>
 </html>
