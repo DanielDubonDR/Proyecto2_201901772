@@ -1,6 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 
+#Importando las clases donde almaceno datos
+from Datos.Usuario import Usuario
+from Datos.Receta import Receta
+
 app = Flask(__name__)
 CORS(app)
 
