@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
 <html lang="en" dir="ltr">
 
 <head>
@@ -11,22 +10,28 @@
 <body>
   <div class="wrapper">
     <div class="title">Iniciar Sesión</div>
-    <form action="#">
+    <form method="POST">
       <div class="field">
-        <input type="text" required>
+        <input type="text" name="user" required>
         <label>Usuario</label>
       </div>
       <div class="field">
-        <input type="password" required>
+        <input type="password" name="pass" required>
         <label>Contraseña</label>
       </div>
       <div class="field">
         <br>
         <input type="submit" value="Ingresar">
       </div>
+      <br>
+      {% if error != None %}
+      <div id="msga">
+        ¡Usuario o contraseña incorrecta!
+      </div>
+      {% endif %}
       <div class="signup-link">
         <br>
-        ¿No esta registrado? <a href="registrar.html">Registrese ahora</a>
+        ¿No esta registrado? <a href="registrar">Registrese ahora</a>
       </div>
       <div class="content">
         <div class="pass-link">
@@ -36,5 +41,4 @@
     </form>
   </div>
 </body>
-
 </html>

@@ -17,11 +17,19 @@
         <nav>
             <section class="contenedor nav">
                 <div class="enlaces-header">
+                    {% if uss == None %}
                     <p>CUK</p>
+                    {% else %}
+                    <p>{{uss}}</p>
+                    {% endif %}
                 </div>
                 <div class="enlaces-header">
                     <a href="#">Inicio</a>
-                    <a href="login.html">Iniciar Sesión</a>
+                    {% if uss == None %}
+                    <a href="/login">Iniciar Sesión</a>
+                    {% else %}
+                    <a href="/logout">Cerrar Sesión</a>
+                    {% endif %}
                 </div>
                 <div class="hamburguer">
                     <i class="fas fa-bars"></i>

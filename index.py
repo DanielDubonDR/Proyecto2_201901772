@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, session
 from flask_cors import CORS
 
 #Importando las clases donde almaceno datos
@@ -7,8 +7,9 @@ from Datos.Receta import Receta
 
 #Creando los primeros usuarios
 Usuarios=[]
-Usuarios.append(Usuario("Usuario","Maestro","admin","admin",0))
-Usuarios.append(Usuario("Daniel","Reginaldo","456","465",1))
+Usuarios.append(Usuario('Usuario','Maestro','admin','admin',0))
+Usuarios.append(Usuario('Daniel','Reginaldo','dd','456',1))
+Usuarios.append(Usuario('Anahi','Dubon','Anahi','27',1))
 
 #Creando las primeras recetas
 Recetas=[]
@@ -19,20 +20,48 @@ Recetas.append(Receta("Cochinita Pibil",resumen1,"none","none","none","https://o
 Recetas.append(Receta("Pepián",resumen2,"none","none","none","https://www.guatemala.com/fotos/2019/09/Convocatoria-para-participar-en-el-Festival-del-Pepian-2019-en-la-Ciudad-de-Guatemala1.jpg"))
 Recetas.append(Receta("Kak'ik",resumen3,"none","none","none","https://aprende.guatemala.com/wp-content/uploads/2016/10/Receta-de-Kaqik-guatemalteco.jpg"))
 
+#Funciones
+def validarCredenciales(user, password):
+    for User in Usuarios:
+        if User.getUsuario()==user and User.getContrasena()==password:
+            datosUsuario=User
+            return User
+    return None
+
+#API-REST
 app = Flask(__name__)
 CORS(app)
+app.secret_key=b'xdycghzubhu55h&hh(j)u_kgbhb#$f'
 
 @app.route('/')
 def home():
-    return render_template('login/principal.html', Recetas=Recetas)
+    if 'logueado' in session:
+        return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'])
+    return render_template('login/principal.html', Recetas=Recetas, uss=None)
 
-@app.route('/registrar.html')
+@app.route('/registrar')
 def registar():
     return render_template('login/registrar.html')
 
-@app.route('/login.html')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    return render_template('login/login.html')
+    error = None
+    if request.method == 'POST':
+        usuario = validarCredenciales(request.form['user'], request.form['pass'])
+        if usuario != None:
+            session['logueado'] = usuario.getUsuario()
+            return redirect('/')
+        else:
+            error = 'Contrasena invalida'
+            return render_template('login/login.html', error=error)
+    if 'logueado' in session:
+        return redirect('/')
+    return render_template('login/login.html', error=error)
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('logueado', None)
+    return redirect('login')
 
 if __name__=='__main__':
     app.run(debug=True)

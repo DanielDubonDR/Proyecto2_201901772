@@ -136,3 +136,11 @@ form .signup-link a:hover{
   text-align: center;
   display: none;
 }
+
+#msga
+{
+  color: red;
+  font-size: 12px;
+  text-align: center;
+  display: block;
+}

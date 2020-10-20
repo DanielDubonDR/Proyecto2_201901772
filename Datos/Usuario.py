@@ -11,19 +11,19 @@ class Usuario:
 
     #Getter's
     def getNombre(self):
-        return nombre
+        return self.nombre
     
     def getApellido(self):
-        return apellido
+        return self.apellido
     
     def getUsuario(self):
-        return usuario
+        return self.usuario
 
     def getContrasena(self):
-        return contrasena
+        return self.contrasena
 
     def getTipo(self):
-        return tipo
+        return self.tipo
 
     #Setter's
 
