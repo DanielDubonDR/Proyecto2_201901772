@@ -13,29 +13,33 @@
 
     <div class="title">Registrar</div>
 
-      <form action="###" method="POST" onsubmit="return validar();" required>
+      <form method="POST" onsubmit="return validar();" >
         <div class="field">
-          <input type="text"   maxlength="25" required>
+          <input type="text" name="nombre"  maxlength="25" required>
           <label>Nombre</label>
         </div>
 
         <div class="field">
-          <input type="text" required >
+          <input type="text" name="apellido" maxlength="25" required >
           <label>Apellidos</label>
         </div>
 
         <div class="field">
-          <input type="text" id="usuario"  onkeypress="return soloLetras(event);" required>
+          <input type="text" name="usuario" id="usuario" maxlength="25"  onkeypress="return soloLetras(event);" required>
           <label>Usuario</label>
         </div>
-
+        {% if error == True %}
+        <div id="msga">
+          Este usuario ya existe
+        </div>
+        {% endif %}
         <div class="field">
-          <input type="password" id="pass1" required>
+          <input type="password" name="contrasena" id="pass1" maxlength="25" required>
           <label>Contraseña</label>
         </div>
 
         <div class="field">
-          <input type="password" id="pass2" required>
+          <input type="password" id="pass2" maxlength="25" required>
           <label>Confirmar Contraseña</label>
           <div id="msg">
             Las contraseñas no coinciden

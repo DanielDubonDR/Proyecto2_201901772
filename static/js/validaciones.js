@@ -57,3 +57,37 @@ function validar()
     }
     return k;
 }
+
+function addUsuario()
+    {
+      let nombre = document.getElementById('nombre').value;
+      let apellido = document.getElementById('apellido').value;
+      let usuario = document.getElementById('usuario').value;
+      let contrasena = document.getElementById('pass1').value;
+      let tipo=1;
+
+        let datos = {
+          nombre: nombre,
+          apellido: apellido,
+          usuario: usuario,
+          contrasena: contrasena,
+          tipo: tipo
+        }
+        console.log(datos);
+        let opciones = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        }
+
+        fetch('/addUsuario', opciones).then((res) =>
+        {
+          res.json().then((data) =>
+          {
+            //location.reload();
+          });
+        });
+
+    }
