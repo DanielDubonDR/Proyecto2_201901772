@@ -16,7 +16,7 @@
     <header>
         <nav>
             <section class="contenedor nav">
-                <div class="enlaces-header">
+                <div class="nombre" style="font-family: Lobster, serif; font-size: 19px;">
                     {% if uss == None %}
                     <p>CUK</p>
                     {% else %}
@@ -28,6 +28,10 @@
                     {% if uss == None %}
                     <a href="/login">Iniciar Sesión</a>
                     {% else %}
+                        {% if tippo == 0 %}
+                            <a href="#">Dashboard</a>
+                        {% endif %}
+                    <a href="#">Perfil</a>
                     <a href="/logout">Cerrar Sesión</a>
                     {% endif %}
                 </div>
@@ -36,6 +40,7 @@
                 </div>
             </section>
         </nav>
+        {% if uss == None %}
         <div class="contenedor">
             <section class="contenido-header">
                 <section class="textos-header">
@@ -45,6 +50,7 @@
                 <img src="{{url_for('static', filename = 'img/primeraIlustracion.svg')}}" alt="">
             </section>
         </div>
+        {% endif %}
     </header>
     <section class="about-us">
         <div class="contenedor1">
@@ -126,7 +132,7 @@
 
     <footer>
         <div class="partFooter">
-            <img src="img/logo-jordan-alexander.png" alt="">
+            <img src="" alt="">
         </div>
         <div class="partFooter">
             <h4>Servicios</h4>

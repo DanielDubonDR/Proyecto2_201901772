@@ -18,13 +18,19 @@ resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicio
 Recetas.append(Receta("Cochinita Pibil",resumen1,"none","none","none","https://okdiario.com/img/recetas/2016/11/13/cochinita-pibil.jpg"))
 Recetas.append(Receta("Pepián",resumen2,"none","none","none","https://www.guatemala.com/fotos/2019/09/Convocatoria-para-participar-en-el-Festival-del-Pepian-2019-en-la-Ciudad-de-Guatemala1.jpg"))
 Recetas.append(Receta("Kak'ik",resumen3,"none","none","none","https://aprende.guatemala.com/wp-content/uploads/2016/10/Receta-de-Kaqik-guatemalteco.jpg"))
-datosUsuario=''
+nombre1=''
+apellido1=''
+tipo1=''
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
     for User in Usuarios:
         if User.getUsuario()==user and User.getContrasena()==password:
-            global datosUsuario
-            datosUsuario=User.getNombre()
+            global nombre1
+            global apellido1
+            global tipo1
+            nombre1=User.getNombre()
+            apellido1=User.getApellido()
+            tipo1=User.getTipo()
             return User
     return None
 
@@ -42,7 +48,7 @@ app.secret_key=b'xdycghzubhu55h&hh(j)u_kgbhb#$f'
 @app.route('/')
 def home():
     if 'logueado' in session:
-        return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=datosUsuario)
+        return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
     return render_template('login/principal.html', Recetas=Recetas, uss=None)
 
 @app.route('/registrar', methods=['POST', 'GET'])

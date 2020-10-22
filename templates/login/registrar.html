@@ -28,11 +28,7 @@
           <input type="text" name="usuario" id="usuario" maxlength="25"  onkeypress="return soloLetras(event);" required>
           <label>Usuario</label>
         </div>
-        {% if error == True %}
-        <div id="msga">
-          Este usuario ya existe
-        </div>
-        {% endif %}
+        
         <div class="field">
           <input type="password" name="contrasena" id="pass1" maxlength="25" required>
           <label>Contraseña</label>
@@ -54,6 +50,11 @@
       <div class="signup-link">
         <a href="login">Iniciar Sesión</a>
       </div>
+      {% if error == True %}
+        <div id="msga">
+          Este usuario ya esta registrado
+        </div>
+        {% endif %}
     </form>
   </div>
 </body>
