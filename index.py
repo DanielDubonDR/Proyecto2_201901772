@@ -10,14 +10,29 @@ Usuarios=[]
 Usuarios.append(Usuario('Usuario','Maestro','admin','admin',0))
 Usuarios.append(Usuario('Daniel','Reginaldo','daniel','123',1))
 
+#----------------------------------------------VARIABLES GLOBALES---------------------------------------------------
+global id
+id=2
+
 #-------------------------------------------RECETAS PREDETERMIANDAS-------------------------------------------------
 Recetas=[]
 resumen1="Es un guiso correspondiente a la gastronomía de Yucatán,​ basado en carne de cerdo adobada en achiote, envuelta en hoja de plátano y cocida dentro de un horno de tierra usando una técnica prehispánica conocida como pib."
+preparacion1="Enjuaga la carne y córtala en trozos."\
+"#Licúa el jugo de naranja con la cebolla, el vinagre y el achiote."\
+"#Pon a cocer la carne con la mezcla en olla de presión por 30 minutos."\
+"#Mientras, corta la cebolla en julianas, saltéala en aceite de oliva"\
+"#Ponla en un recipiente con el vinagre, un poco de sal y orégano."\
+"#Corta el chile habanero en rebanadas finas, ponle el jugo de limón, un poco de agua y sal al gusto. #Sirve los tacos con las cebollitas y una rebanada de habanero."
+ingredientes1="Para la carne#1 kilo de pulpa de cerdo#1 litro de jugo de naranja"\
+"#1/4 de cebolla#1/2 taza de vinagre de manzana#100 g de pasta de achiote"\
+"#Chile habanero#1 limón (el jugo)#Para las cebollas"\
+"#1 cebolla morada#4 cucharadas de aceite de oliva"\
+"#1/4 de taza de vinagre#1 cucharadita de orégano#Sal"
 resumen2="Es un platillo tradicional guatemalteco de origen kaqchiquel, propio del departamento de Chimaltenango. Su origen es prehispánico y se servía en las ceremonias religiosas mayas. El pepián es un recado que puede prepararse con costilla de res, carne de cerdo, con pollo, o una mezcla las distintas carnes."
 resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicional del departamento de Cobán, Guatemala. Es una comida ancestral de ascendencia prehispánica, por eso tiene el color rojo que rememora en alguna medida la sangre ritual de los antepasados en sus ceremonias."
-Recetas.append(Receta("Cochinita Pibil",resumen1,"none","none","none","https://okdiario.com/img/recetas/2016/11/13/cochinita-pibil.jpg","none"))
-Recetas.append(Receta("Pepián",resumen2,"none","none","none","https://www.guatemala.com/fotos/2019/09/Convocatoria-para-participar-en-el-Festival-del-Pepian-2019-en-la-Ciudad-de-Guatemala1.jpg","none"))
-Recetas.append(Receta("Kak'ik",resumen3,"none","none","none","https://aprende.guatemala.com/wp-content/uploads/2016/10/Receta-de-Kaqik-guatemalteco.jpg", "none"))
+Recetas.append(Receta("0","Cochinita Pibil",resumen1,ingredientes1,preparacion1,"1 hora","https://dam.cocinafacil.com.mx/wp-content/uploads/2019/08/tacos-de-cochinita.jpg","Daniel","Comida Mexicana"))
+Recetas.append(Receta("1","Pepián",resumen2,"none","none","2 horas","https://img-global.cpcdn.com/recipes/c4361919b103df7a/1200x630cq70/photo.jpg","Reginaldo","Platillo típico"))
+Recetas.append(Receta("2","Kak'ik",resumen3,"none","none","1 hora y 30 minutos","https://i.pinimg.com/originals/25/00/39/25003904d6b783d8645206af2d936b2c.jpg", "Sulvey","Platillo tipico"))
 nombre1=''
 apellido1=''
 tipo1=''
@@ -51,25 +66,33 @@ def home():
         return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
     return render_template('login/principal.html', Recetas=Recetas, uss=None)
 
-@app.route('/receta')
-def receta():
-    if 'logueado' in session:
-        return render_template('recetas/recipe.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
-    return render_template('recetas/recipe.html', Recetas=Recetas, uss=None)
 
-@app.route('/registrar', methods=['POST', 'GET'])
-def registar():
-    error=False
-    if request.method == 'POST':
-        verificar=validarUsuario(request.form['usuario'])
-        if verificar==False:
-            global Usuarios
-            n = Usuario(request.form['nombre'],request.form['apellido'],request.form['usuario'],request.form['contrasena'],1)
-            Usuarios.append(n)
-            return redirect('login')
-        else:
-            return render_template('login/registrar.html', error=True)
-    return render_template('login/registrar.html')
+#------------------------------------------------------CARGAR RECETA DETALLADA-----------------------------------------------------
+@app.route('/receta/<string:ID>')
+def verReceta(ID):
+    title=""
+    resumen=""
+    ingredientes=""
+    preparacion=""
+    tiempo=""
+    imagen=""
+    categoria=""
+    autor=""
+    for recipe in Recetas:
+        if recipe.getId()==ID:
+            title=recipe.getTitulo()
+            resumen=recipe.getResumen()
+            ingredientes=recipe.getIngredientes()
+            preparacion=recipe.getPreparacion()
+            tiempo=recipe.getTiempo()
+            imagen=recipe.getImagen()
+            categoria=recipe.getCategoria()
+            autor=recipe.getAutor()
+    if 'logueado' in session:
+        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
+    return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
+
+
 
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
@@ -93,16 +116,20 @@ def logout():
     return redirect('login')
 
 #--------------------------------------------REGISTRAR------------------------------------------
+@app.route('/registrar', methods=['POST', 'GET'])
+def registar():
+    error=False
+    if request.method == 'POST':
+        verificar=validarUsuario(request.form['usuario'])
+        if verificar==False:
+            global Usuarios
+            n = Usuario(request.form['nombre'],request.form['apellido'],request.form['usuario'],request.form['contrasena'],1)
+            Usuarios.append(n)
+            return redirect('login')
+        else:
+            return render_template('login/registrar.html', error=True)
+    return render_template('login/registrar.html')
 
-@app.route('/addUsuario', methods=['POST'])
-def AgregarUsuario():
-    verificar=validarUsuario(request.json['usuario'])
-    if verificar==False:
-        global Usuarios
-        n = Usuario(request.json['nombre'],request.json['apellido'],request.json['usuario'],request.json['contrasena'],request.json['tipo'])
-        Usuarios.append(n)
-        return{"msg":"Usuario agregado"}
-    return render_template('login/registrar.html', error=True)
 
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)

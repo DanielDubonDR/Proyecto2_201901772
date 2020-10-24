@@ -1,7 +1,8 @@
 class Receta:
 
     #Constructor
-    def __init__(self, titulo, resumen, ingredientes, preparacion, tiempo, imagen, autor):
+    def __init__(self, id, titulo, resumen, ingredientes, preparacion, tiempo, imagen, autor, categoria):
+        self.id=id
         self.titulo=titulo
         self.resumen=resumen
         self.ingredientes=ingredientes
@@ -9,8 +10,10 @@ class Receta:
         self.tiempo=tiempo
         self.imagen=imagen
         self.autor=autor
-    
+        self.categoria=categoria
     #Setter's
+    def setId(self, id):
+        self.id=id
 
     def setTitulo(self, titulo):
         self.titulo=titulo
@@ -32,25 +35,33 @@ class Receta:
 
     def setAutor(self, autor):
         self.autor=autor
+
+    def setCategoria(self, categoria):
+        self.categoria=categoria
     #Getter's
+    def getId(self):
+        return self.id
 
     def getTitulo(self):
-        return titulo
+        return self.titulo
 
     def getResumen(self):
-        return resumen
+        return self.resumen
 
     def getIngredientes(self):
-        return ingredientes
+        return self.ingredientes
     
     def getPreparacion(self):
-        return preparacion
+        return self.preparacion
 
     def getTiempo(self):
-        return tiempo
+        return self.tiempo
 
     def getImagen(self):
-        return imagen
+        return self.imagen
 
     def getAutor(self):
-        return autor
+        return self.autor
+
+    def getCategoria(self):
+        return self.categoria
