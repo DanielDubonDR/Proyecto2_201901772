@@ -1,13 +1,14 @@
 class Receta:
 
     #Constructor
-    def __init__(self, titulo, resumen, ingredientes, preparacion, tiempo, imagen):
+    def __init__(self, titulo, resumen, ingredientes, preparacion, tiempo, imagen, autor):
         self.titulo=titulo
         self.resumen=resumen
         self.ingredientes=ingredientes
         self.preparacion=preparacion
         self.tiempo=tiempo
         self.imagen=imagen
+        self.autor=autor
     
     #Setter's
 
@@ -29,6 +30,8 @@ class Receta:
     def setImagen(self, imagen):
         self.imagen=imagen
 
+    def setAutor(self, autor):
+        self.autor=autor
     #Getter's
 
     def getTitulo(self):
@@ -48,3 +51,6 @@ class Receta:
 
     def getImagen(self):
         return imagen
+
+    def getAutor(self):
+        return autor

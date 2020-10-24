@@ -15,9 +15,9 @@ Recetas=[]
 resumen1="Es un guiso correspondiente a la gastronomía de Yucatán,​ basado en carne de cerdo adobada en achiote, envuelta en hoja de plátano y cocida dentro de un horno de tierra usando una técnica prehispánica conocida como pib."
 resumen2="Es un platillo tradicional guatemalteco de origen kaqchiquel, propio del departamento de Chimaltenango. Su origen es prehispánico y se servía en las ceremonias religiosas mayas. El pepián es un recado que puede prepararse con costilla de res, carne de cerdo, con pollo, o una mezcla las distintas carnes."
 resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicional del departamento de Cobán, Guatemala. Es una comida ancestral de ascendencia prehispánica, por eso tiene el color rojo que rememora en alguna medida la sangre ritual de los antepasados en sus ceremonias."
-Recetas.append(Receta("Cochinita Pibil",resumen1,"none","none","none","https://okdiario.com/img/recetas/2016/11/13/cochinita-pibil.jpg"))
-Recetas.append(Receta("Pepián",resumen2,"none","none","none","https://www.guatemala.com/fotos/2019/09/Convocatoria-para-participar-en-el-Festival-del-Pepian-2019-en-la-Ciudad-de-Guatemala1.jpg"))
-Recetas.append(Receta("Kak'ik",resumen3,"none","none","none","https://aprende.guatemala.com/wp-content/uploads/2016/10/Receta-de-Kaqik-guatemalteco.jpg"))
+Recetas.append(Receta("Cochinita Pibil",resumen1,"none","none","none","https://okdiario.com/img/recetas/2016/11/13/cochinita-pibil.jpg","none"))
+Recetas.append(Receta("Pepián",resumen2,"none","none","none","https://www.guatemala.com/fotos/2019/09/Convocatoria-para-participar-en-el-Festival-del-Pepian-2019-en-la-Ciudad-de-Guatemala1.jpg","none"))
+Recetas.append(Receta("Kak'ik",resumen3,"none","none","none","https://aprende.guatemala.com/wp-content/uploads/2016/10/Receta-de-Kaqik-guatemalteco.jpg", "none"))
 nombre1=''
 apellido1=''
 tipo1=''
@@ -50,6 +50,12 @@ def home():
     if 'logueado' in session:
         return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
     return render_template('login/principal.html', Recetas=Recetas, uss=None)
+
+@app.route('/receta')
+def receta():
+    if 'logueado' in session:
+        return render_template('recetas/recipe.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
+    return render_template('recetas/recipe.html', Recetas=Recetas, uss=None)
 
 @app.route('/registrar', methods=['POST', 'GET'])
 def registar():
