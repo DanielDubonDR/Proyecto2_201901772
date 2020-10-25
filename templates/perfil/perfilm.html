@@ -49,21 +49,21 @@
         <div class="w3-card-2 w3-display-middle" style="width: 70%;">
             <div class="w3-container w3-padding-16" style="width: 98%;">
                 <label>Nombre</label>
-                <input class="w3-input w3-border w3-round-large"  required type="text" value={{nombre}}>
+                <input class="w3-input w3-border w3-round-large"  id="nombre" required type="text" value="{{nombre}}">
                 <br>
                 <label>Apellido</label>
-                <input class="w3-input w3-border w3-round-large" required type="text" value={{apellido}}>
+                <input class="w3-input w3-border w3-round-large" id="apellido" required type="text" value="{{apellido}}">
                 <br>
                 <label>Usuario</label>
-                <input class="w3-input w3-border w3-round-large" id="usuario" required type="text" value={{uss}} onkeypress="return soloLetras(event);">
+                <input class="w3-input w3-border w3-round-large" id="usuario" required type="text" value="{{uss}}" onkeypress="return soloLetras(event);">
                 <br>
                 <label>Contraseña</label>
-                <input class="w3-input w3-border w3-round-large" required type="text">
+                <input class="w3-input w3-border w3-round-large" id="contrasena" required type="text">
 
             </div>
             <div class="w3-center w3-padding-16">
                 <div class="w3-bar">
-                    <button class="w3-button w3-padding w3-indigo w3-round-large w3-ripple">Guardar Cambios</button>
+                    <button class="w3-button w3-padding w3-indigo w3-round-large w3-ripple" onclick="Modificar()">Guardar Cambios</button>
                     <button class="w3-button w3-padding w3-black w3-round-large w3-ripple" onclick="location.href='/'">Cancelar</button>
                 </div>
             </div> 
@@ -72,6 +72,38 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://kit.fontawesome.com/c15b744a04.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename = 'js/main.js')}}"></script>
+    <script>
+        function Modificar()
+        {
+            var nombre = document.querySelector('#nombre').value
+            var apellido = document.querySelector('#apellido').value
+            var usuario = document.querySelector('#usuario').value
+            var password = document.querySelector('#contrasena').value
+            var objeto = {
+                'nombre':nombre,
+                'apellido':apellido,
+                'usuario':usuario,
+                'password':password
+            }
+            console.log(objeto)
+            fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
+            method: 'PUT',
+            body: JSON.stringify(objeto), 
+            headers:{
+                'Content-Type': 'application/json'
+            } 
+            }).then(res => res.json())
+            .catch(error => {
+                console.error('Error:', error)
+                alert("Ocurrio un error al consumir la API, revise la consola")
+            })
+            .then(response =>{
+                console.log('Success:', response);
+                alert(response.message)
+                location.href="/perfil"
+            }) 
+        }
+    </script>
 </body>
 
 </html>

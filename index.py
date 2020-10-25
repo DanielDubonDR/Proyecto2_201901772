@@ -152,6 +152,24 @@ def perfilm():
 def password():
     if 'logueado' in session:
         return render_template('perfil/perfilp.html',uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'], apellido=session['apellido'])
+
+@app.route('/perfil/modificar/<string:usuario>', methods=['PUT'])
+def ActualizarDatos(usuario):
+    print(usuario)
+    global Usuarios
+    encontrado=False
+    for i in Usuarios:
+        if usuario == i.getUsuario() and i.getContrasena()==request.json['password']:
+            encontrado=True
+            i.setNombre(request.json['nombre'])
+            i.setApellido(request.json['apellido'])
+            i.setUsuario(request.json['usuario'])
+            session['nombre']=request.json['nombre']
+            break
+    if encontrado==False:
+        return jsonify({'message':'Error contraseña invalida'})
+    else:
+        return jsonify({'message':'Se actualizo el dato exitosamente'})
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)
 def page_not_found(error):
