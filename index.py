@@ -33,19 +33,11 @@ resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicio
 Recetas.append(Receta("0","Cochinita Pibil",resumen1,ingredientes1,preparacion1,"1 hora","https://dam.cocinafacil.com.mx/wp-content/uploads/2019/08/tacos-de-cochinita.jpg","Daniel","Comida Mexicana"))
 Recetas.append(Receta("1","Pepián",resumen2,"none","none","2 horas","https://img-global.cpcdn.com/recipes/c4361919b103df7a/1200x630cq70/photo.jpg","Reginaldo","Platillo típico"))
 Recetas.append(Receta("2","Kak'ik",resumen3,"none","none","1 hora y 30 minutos","https://i.pinimg.com/originals/25/00/39/25003904d6b783d8645206af2d936b2c.jpg", "Sulvey","Platillo tipico"))
-nombre1=''
-apellido1=''
-tipo1=''
+
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
     for User in Usuarios:
         if User.getUsuario()==user and User.getContrasena()==password:
-            global nombre1
-            global apellido1
-            global tipo1
-            nombre1=User.getNombre()
-            apellido1=User.getApellido()
-            tipo1=User.getTipo()
             return User
     return None
 
@@ -63,7 +55,7 @@ app.secret_key=b'xdycghzubhu55h&hh(j)u_kgbhb#$f'
 @app.route('/')
 def home():
     if 'logueado' in session:
-        return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
+        return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'])
     return render_template('login/principal.html', Recetas=Recetas, uss=None)
 
 
@@ -100,6 +92,9 @@ def login():
         usuario = validarCredenciales(request.form['user'], request.form['pass'])
         if usuario != None:
             session['logueado'] = usuario.getUsuario()
+            session['nombre']=usuario.getNombre()
+            session['apellido']=usuario.getApellido()
+            session['tipo']=usuario.getTipo()
             return redirect('/')
         else:
             error = 'Contrasena invalida'
@@ -146,8 +141,17 @@ def registar():
 @app.route('/perfil')
 def perfil():
     if 'logueado' in session:
-        return render_template('login/perfil.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
+        return render_template('perfil/perfil.html',uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'], apellido=session['apellido'])
 
+@app.route('/perfil/modificar')
+def perfilm():
+    if 'logueado' in session:
+        return render_template('perfil/perfilm.html',uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'], apellido=session['apellido'])
+
+@app.route('/perfil/password')
+def password():
+    if 'logueado' in session:
+        return render_template('perfil/perfilp.html',uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'], apellido=session['apellido'])
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)
 def page_not_found(error):
