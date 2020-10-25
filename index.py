@@ -125,7 +125,7 @@ def forgot():
 @app.route('/logout', methods=['GET'])
 def logout():
     session.pop('logueado', None)
-    return redirect('login')
+    return redirect('/')
 
 #--------------------------------------------REGISTRAR------------------------------------------
 @app.route('/registrar', methods=['POST', 'GET'])
@@ -142,6 +142,11 @@ def registar():
             return render_template('login/registrar.html', error=True)
     return render_template('login/registrar.html')
 
+#------------------------------------------------MODIFICAR PERFIL-----------------------------------------------
+@app.route('/perfil')
+def perfil():
+    if 'logueado' in session:
+        return render_template('login/perfil.html', Recetas=Recetas, uss=session['logueado'], nombre=nombre1, tippo=tipo1)
 
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)

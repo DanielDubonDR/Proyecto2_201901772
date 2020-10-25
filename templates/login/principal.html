@@ -26,12 +26,16 @@
                 <div class="enlaces-header">
                     <a href="#">Inicio</a>
                     {% if uss == None %}
+                    <a href="#r">Recetas</a>
                     <a href="/login">Iniciar Sesión</a>
                     {% else %}
                         {% if tippo == 0 %}
                             <a href="#">Dashboard</a>
                         {% endif %}
-                    <a href="#">Perfil</a>
+                        {% if tippo == 1 %}
+                            <a href="#">Publicar Receta</a>
+                        {% endif %}
+                    <a href="/perfil">Perfil</a>
                     <a href="/logout">Cerrar Sesión</a>
                     {% endif %}
                 </div>
@@ -45,14 +49,14 @@
             <section class="contenido-header">
                 <section class="textos-header">
                     <h1>CUK - Recetas de Cocina</h1>
-                    <p>La cocina al alcance de todos, no tendras excusas para preparar un platillo.</p>
+                    <p>La cocina al alcance de todos, no tendras excusas para preparar un platillo, el mejor recetario web que podrás encontrar.</p>
                 </section>
                 <img src="{{url_for('static', filename = 'img/primeraIlustracion.svg')}}" alt="">
             </section>
         </div>
         {% endif %}
     </header>
-    <section class="about-us">
+    <section class="about-us" id="r">
         <div class="contenedor1">
             <h2 class="titulo">Recetas Publicadas   </h2>
             <div class="contenedor-articulo">
@@ -68,65 +72,33 @@
     </section>
     <section class="questions contenedor">
         <section class="textos-questions">
-            <h1>Our creativity is your success</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit, dolorum.</p>
-            <a href="#">Learn more</a>
+            <h1>El mejor lugar para compartir recetas</h1>
+            <p>Comparte tus recetas e interactua con otros amantes de la cocina, solo inicia sesión</p>
+            <a href="/login">Iniciar Sesión</a>
         </section>
-        <img src="{{url_for('static', filename = 'img/segundaIlustracion.svg')}}" alt="" data-aos="zoom-out-up" data-aos-duration="2000">
+        <img src="{{url_for('static', filename = 'img/terceraIlustracion.svg')}}" alt="" data-aos="zoom-out-up" data-aos-duration="2000">
     </section>
 
-    <section class="results">
+    <section class="results" id="d">
         <div class="contenedor1 conten-results">
             <section class="numbers">
                 <div class="number" data-aos="zoom-in-left">
                     <h4>+8863</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
                 </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
-                <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
-                </div>
             </section>
             <section class="results-text">
-                <h4>Lorem ipsum dolor sit amet.</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet sequi nihil unde.</p>
+                <h4>Recetas destacadas</h4>
+                <p>Recetas más apoyada por los usuarios.</p>
                 <a href="#">Ingrese aquí</a>
             </section>
         </div>
     </section>
 
     <section class="contenedor1 services">
-        <img src="{{url_for('static', filename = 'img/terceraIlustracion.svg')}}" alt="">
+        <img src="{{url_for('static', filename = 'img/segundaIlustracion.svg')}}" alt="">
         <div class="box-skills">
-            <h4><i class="far fa-check-circle"></i> Web design</h4>
-            <h4><i class="far fa-check-circle"></i> Web development</h4>
-            <h4><i class="far fa-check-circle"></i> SEO</h4>
-            <h4><i class="far fa-check-circle"></i> Marketing</h4>
-            <h4><i class="far fa-check-circle"></i> Web support</h4>
+            <h4>Saca tu chef interno con estas recetas, cocina los platillos más deliciosos y compartelo con tus amigos o familiares </h4>
         </div>
     </section>
 
@@ -135,16 +107,14 @@
             <img src="" alt="">
         </div>
         <div class="partFooter">
-            <h4>Servicios</h4>
-            <a href="#">Services 1</a>
-            <a href="#">Services 2</a>
-            <a href="#">Services 3</a>
+            <h4>Contáctenos</h4>
+            <p>cuk-contact@gmail.com</p>
         </div>
         <div class="partFooter">
             <h4>Acerca de</h4>
-            <a href="#">About 1</a>
-            <a href="#">About 2</a>
-            <a href="#">About 3</a>
+            <a href="#">Sobre nosotros</a>
+            <a href="#d">Recetas destacadas</a>
+            <a href="#">Reglas de la comunidad</a>
         </div>
         <div class="partFooter">
             <h4>Redes sociales</h4>
