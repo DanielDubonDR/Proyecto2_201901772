@@ -3,39 +3,35 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Inicio de Sesión</title>
+  <title>Recuperacion de contrasena</title>
   <link href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
   <div class="wrapper">
-    <div class="title">Iniciar Sesión</div>
+    <div class="title" style="font-size: 28px;">Recuperar Contraseña</div>
     <form method="POST">
       <div class="field">
         <input type="text" name="user" required>
         <label>Usuario</label>
       </div>
       <div class="field">
-        <input type="password" name="pass" required>
-        <label>Contraseña</label>
-      </div>
-      <div class="field">
         <br>
-        <input type="submit" value="Ingresar">
+        <input type="submit" value="Recuperar Contraseña">
       </div>
       <br>
       {% if error != None %}
-      <div id="msga">
-        ¡Usuario o contraseña incorrecta!
-      </div>
+        <div id="msga">
+          ¡Usuario no encontrado!
+        </div>
+      {% elif p!= None %}
+        <div id="msgb">
+          Contraseña:&nbsp;{{p}}
+        </div>
       {% endif %}
-      <div class="signup-link">
-        <br>
-        ¿No esta registrado? <a href="registrar">Registrese ahora</a>
-      </div>
       <div class="content">
         <div class="pass-link">
-          <a href="/recuperar">¿Olvidó su contraseña?</a>
+          <a href="/">Regresar al Inicio de Sesión</a>
         </div>
       </div>
     </form>

@@ -144,3 +144,11 @@ form .signup-link a:hover{
   text-align: center;
   display: block;
 }
+
+#msgb
+{
+  color: blue;
+  font-size: 12px;
+  text-align: center;
+  display: block;
+}

@@ -92,8 +92,6 @@ def verReceta(ID):
         return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
     return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
 
-
-
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -109,6 +107,20 @@ def login():
     if 'logueado' in session:
         return redirect('/')
     return render_template('login/login.html', error=error)
+
+@app.route('/recuperar', methods=['POST', 'GET'])
+def forgot():
+    error = None
+    p=None
+    if request.method == 'POST':
+        usuario = validarUsuario(request.form['user'])
+        if usuario == True:
+            for User in Usuarios:
+                if User.getUsuario()==request.form['user']:
+                    p=User.getContrasena()
+        else:
+            error = 'Usuario no encontrado'
+    return render_template('login/recuperar.html', error=error, p=p)
 
 @app.route('/logout', methods=['GET'])
 def logout():
