@@ -155,21 +155,27 @@ def password():
 
 @app.route('/perfil/modificar/<string:usuario>', methods=['PUT'])
 def ActualizarDatos(usuario):
-    print(usuario)
-    global Usuarios
-    encontrado=False
-    for i in Usuarios:
-        if usuario == i.getUsuario() and i.getContrasena()==request.json['password']:
-            encontrado=True
-            i.setNombre(request.json['nombre'])
-            i.setApellido(request.json['apellido'])
-            i.setUsuario(request.json['usuario'])
+    encontrado=validarCredenciales(usuario, request.json['password'])
+    if encontrado!=None:
+        if encontrado.getUsuario()!=request.json['usuario']:
+            if validarUsuario(request.json['usuario'])==False:
+                encontrado.setNombre(request.json['nombre'])
+                encontrado.setApellido(request.json['apellido'])
+                encontrado.setUsuario(request.json['usuario'])
+                session['nombre']=request.json['nombre']
+                session['apellido']=request.json['apellido']
+                session['logueado']=request.json['usuario']
+                return jsonify({'message':'Se actualizaron los datos exitosamente'})
+            else:
+                return jsonify({'message':'Este usuario ya esta registrado'})
+        else:
+            encontrado.setNombre(request.json['nombre'])
+            encontrado.setApellido(request.json['apellido'])
             session['nombre']=request.json['nombre']
-            break
-    if encontrado==False:
-        return jsonify({'message':'Error contraseña invalida'})
+            session['apellido']=request.json['apellido']
+            return jsonify({'message':'Se actualizaron los datos exitosamente'})
     else:
-        return jsonify({'message':'Se actualizo el dato exitosamente'})
+        return jsonify({'message':'Contraseña invalida'})
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)
 def page_not_found(error):

@@ -58,7 +58,7 @@
                 <input class="w3-input w3-border w3-round-large" id="usuario" required type="text" value="{{uss}}" onkeypress="return soloLetras(event);">
                 <br>
                 <label>Contraseña</label>
-                <input class="w3-input w3-border w3-round-large" id="contrasena" required type="text">
+                <input class="w3-input w3-border w3-round-large" id="contrasena" required type="password">
 
             </div>
             <div class="w3-center w3-padding-16">
@@ -79,29 +79,36 @@
             var apellido = document.querySelector('#apellido').value
             var usuario = document.querySelector('#usuario').value
             var password = document.querySelector('#contrasena').value
-            var objeto = {
-                'nombre':nombre,
-                'apellido':apellido,
-                'usuario':usuario,
-                'password':password
+            if(nombre!="" && apellido!=="" && usuario!=="" && password!=="" )
+            {
+
+                var objeto = {
+                    'nombre':nombre,
+                    'apellido':apellido,
+                    'usuario':usuario,
+                    'password':password
+                }
+                console.log(objeto)
+                fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
+                method: 'PUT',
+                body: JSON.stringify(objeto), 
+                headers:{
+                    'Content-Type': 'application/json'
+                } 
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                    alert("Ocurrio un error al consumir la API, revise la consola")
+                })
+                .then(response =>{
+                    console.log('Success:', response);
+                    alert(response.message)
+                    location.href="/perfil"
+                }) 
             }
-            console.log(objeto)
-            fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
-            method: 'PUT',
-            body: JSON.stringify(objeto), 
-            headers:{
-                'Content-Type': 'application/json'
-            } 
-            }).then(res => res.json())
-            .catch(error => {
-                console.error('Error:', error)
-                alert("Ocurrio un error al consumir la API, revise la consola")
-            })
-            .then(response =>{
-                console.log('Success:', response);
-                alert(response.message)
-                location.href="/perfil"
-            }) 
+            else{
+                alert('Llene todos los campos')
+            }
         }
     </script>
 </body>
