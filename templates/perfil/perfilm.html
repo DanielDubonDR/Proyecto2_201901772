@@ -89,7 +89,7 @@
                     'password':password
                 }
                 console.log(objeto)
-                fetch(`/perfil/modificar/{{uss}}`, {
+                fetch(`/perfil/modificar/${password}`, {
                 method: 'PUT',
                 body: JSON.stringify(objeto), 
                 headers:{

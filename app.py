@@ -157,7 +157,7 @@ def password():
 
 @app.route('/perfil/modificar/<string:usuario>', methods=['PUT'])
 def ActualizarDatos(usuario):
-    encontrado=validarCredenciales(usuario, request.json['password'])
+    encontrado=validarCredenciales(session['logueado'], usuario)
     if encontrado!=None:
         if encontrado.getUsuario()!=request.json['usuario']:
             if validarUsuario(request.json['usuario'])==False:
