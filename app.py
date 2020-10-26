@@ -176,6 +176,15 @@ def ActualizarDatos(usuario):
             return jsonify({'message':'Se actualizaron los datos exitosamente'})
     else:
         return jsonify({'message':'Contraseña invalida'})
+
+@app.route('/perfil/password/<string:usuario>', methods=['PUT'])
+def ActualizarPass(usuario):
+    encontrado=validarCredenciales(usuario, request.json['contrasenaActual'])
+    if encontrado!=None:
+        encontrado.setContrasena(request.json['contrasenaNueva'])
+        return jsonify({'message':'Se actualizó la contraseña'})
+    else:
+        return jsonify({'message':'Contraseña actual invalida'})
 #----------------------------------------------ERROR 404--------------------------------------------------------
 @app.errorhandler(404)
 def page_not_found(error):

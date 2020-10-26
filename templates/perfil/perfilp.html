@@ -75,30 +75,35 @@
             var contrasenaActual = document.querySelector('#p0').value
             var contrasenaNueva1 = document.querySelector('#p1').value
             var contrasenaNueva2 = document.querySelector('#p2').value
-            if(p0!="" && p1!=="" && p2!=="")
+            if(contrasenaActual!=="" && contrasenaNueva1!=="" && contrasenaNueva2!=="")
             {
-                var objeto = {
-                    'contrasenaActual':contraenaActual,
-                    'contrasenaNueva1':contrasenaNueva1,
-                    'contrasenaNueva2':contrasenaNueva2
+                if(contrasenaNueva1===contrasenaNueva2)
+                {
+                    var objeto = {
+                        'contrasenaActual':contrasenaActual,
+                        'contrasenaNueva':contrasenaNueva1
+                    }
+                    console.log(objeto)
+                    fetch(`http://localhost:5000/perfil/password/{{uss}}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(objeto), 
+                    headers:{
+                        'Content-Type': 'application/json'
+                    } 
+                    }).then(res => res.json())
+                    .catch(error => {
+                        console.error('Error:', error)
+                        alert("Ocurrio un error")
+                    })
+                    .then(response =>{
+                        console.log('Success:', response);
+                        alert(response.message)
+                        location.href="/perfil"
+                    }) 
                 }
-                console.log(objeto)
-                fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
-                method: 'PUT',
-                body: JSON.stringify(objeto), 
-                headers:{
-                    'Content-Type': 'application/json'
-                } 
-                }).then(res => res.json())
-                .catch(error => {
-                    console.error('Error:', error)
-                    alert("Ocurrio un error")
-                })
-                .then(response =>{
-                    console.log('Success:', response);
-                    alert(response.message)
-                    location.href="/perfil"
-                }) 
+                else{
+                    alert('Las contrasenas no coinciden')
+                }
             }
             else{
                 alert('Llene todos los campos')
