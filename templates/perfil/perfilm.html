@@ -89,7 +89,7 @@
                     'password':password
                 }
                 console.log(objeto)
-                fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
+                fetch(`/perfil/modificar/{{uss}}`, {
                 method: 'PUT',
                 body: JSON.stringify(objeto), 
                 headers:{

@@ -84,7 +84,7 @@
                         'contrasenaNueva':contrasenaNueva1
                     }
                     console.log(objeto)
-                    fetch(`http://localhost:5000/perfil/password/{{uss}}`, {
+                    fetch(`/perfil/password/{{uss}}`, {
                     method: 'PUT',
                     body: JSON.stringify(objeto), 
                     headers:{
