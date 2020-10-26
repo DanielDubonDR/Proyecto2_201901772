@@ -39,12 +39,14 @@ def validarCredenciales(user, password):
     for User in Usuarios:
         if User.getUsuario()==user and User.getContrasena()==password:
             return User
+            break
     return None
 
 def validarUsuario(user):
     for User in Usuarios:
         if User.getUsuario()==user:
             return True
+            break
     return False
 
 #------------------------------------------------------API-REST-----------------------------------------------------
@@ -191,4 +193,4 @@ def page_not_found(error):
     return render_template('extras/404.html'), 404
 
 if __name__=='__main__':
-    app.run(threaded=True)
+    app.run()
