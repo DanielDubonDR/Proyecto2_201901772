@@ -49,18 +49,18 @@
         <div class="w3-card-2 w3-display-middle" style="width: 70%;">
             <div class="w3-container w3-padding-16" style="width: 98%;">
                 <label>Contraseña Actual</label>
-                <input class="w3-input w3-border w3-round-large"  required type="password">
+                <input class="w3-input w3-border w3-round-large" id="p0" required type="password">
                 <br>
                 <label>Nueva Contraseña</label>
-                <input class="w3-input w3-border w3-round-large" required type="password" >
+                <input class="w3-input w3-border w3-round-large" id="p1" required type="password" >
                 <br>
                 <label>Confirmar Contraseña</label>
-                <input class="w3-input w3-border w3-round-large" required type="password">
+                <input class="w3-input w3-border w3-round-large" id="p2" required type="password">
 
             </div>
             <div class="w3-center w3-padding-16">
                 <div class="w3-bar">
-                    <button class="w3-button w3-padding w3-indigo w3-round-large w3-ripple">Guardar Cambios</button>
+                    <button class="w3-button w3-padding w3-indigo w3-round-large w3-ripple" onclick="Modificar()">Guardar Cambios</button>
                     <button class="w3-button w3-padding w3-black w3-round-large w3-ripple" onclick="location.href='/perfil'">Cancelar</button>
                 </div>
             </div> 
@@ -69,6 +69,42 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://kit.fontawesome.com/c15b744a04.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename = 'js/main.js')}}"></script>
+    <script>
+        function Modificar()
+        {
+            var contrasenaActual = document.querySelector('#p0').value
+            var contrasenaNueva1 = document.querySelector('#p1').value
+            var contrasenaNueva2 = document.querySelector('#p2').value
+            if(p0!="" && p1!=="" && p2!=="")
+            {
+                var objeto = {
+                    'contrasenaActual':contraenaActual,
+                    'contrasenaNueva1':contrasenaNueva1,
+                    'contrasenaNueva2':contrasenaNueva2
+                }
+                console.log(objeto)
+                fetch(`http://localhost:5000/perfil/modificar/{{uss}}`, {
+                method: 'PUT',
+                body: JSON.stringify(objeto), 
+                headers:{
+                    'Content-Type': 'application/json'
+                } 
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                    alert("Ocurrio un error")
+                })
+                .then(response =>{
+                    console.log('Success:', response);
+                    alert(response.message)
+                    location.href="/perfil"
+                }) 
+            }
+            else{
+                alert('Llene todos los campos')
+            }
+        }
+    </script>
 </body>
 
 </html>
