@@ -83,7 +83,7 @@ def verReceta(ID):
             categoria=recipe.getCategoria()
             autor=recipe.getAutor()
     if 'logueado' in session:
-        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
+        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'])
     return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
 
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
@@ -193,4 +193,4 @@ def page_not_found(error):
     return render_template('extras/404.html'), 404
 
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)
