@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link href="{{url_for('static', filename = 'css/receta.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos2.css')}}">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Kaushan+Script|Playfair+Display|Source+Sans+Pro">
+	<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 </head>
 <body>
@@ -51,7 +51,7 @@
 	<article>
 
 		<h2>{{titulo}}</h2>
-		<h3 style="font-family: Kaushan Script, cursive;">{{categoria}}</h3>
+		<h3>{{categoria}}</h3>
 
 		<ul>
 			<li><span class="icon icon-users"></span><span>1</span></li>
@@ -59,9 +59,9 @@
 			<li><span class="icon icon-level"></span><span>Dificultad</span></li>
 			<li><span class="icon icon-calories"></span><span>560</span></li>
 		</ul>
-		<h4 style="font-family: Kaushan Script, serif;">Resumen</h4>
+		<h4>Resumen</h4>
 		<p>{{resumen}}</p>
-		<h4 style="font-family: Kaushan Script, serif;">Ingredientes</h4>
+		<h4>Ingredientes</h4>
 		<div class="h">
 			<ol style= "list-style-type: circle">
 				{% for x in ingredientes %}		
@@ -69,7 +69,7 @@
 				{% endfor %}
 			</ol>
 		</div>
-		<h4 style="font-family: Kaushan Script, serif;">Preparación</h4>
+		<h4>Preparación</h4>
 		<div class="h">
 			<ol>
 				{% for i in preparacion %}
