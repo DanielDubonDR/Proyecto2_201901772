@@ -152,3 +152,11 @@ form .signup-link a:hover{
   text-align: center;
   display: block;
 }
+
+#msgt
+{
+  color: rgb(13, 156, 13);
+  font-size: 12px;
+  text-align: center;
+  display: block;
+}

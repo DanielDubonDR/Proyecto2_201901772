@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request, redirect, session
 from flask_cors import CORS
-
+import time
 #------------------------------------IMPORTANDO CLASES DONDE ALMACENO DATOS-----------------------------------------
 from Datos.Usuario import Usuario
 from Datos.Receta import Receta
@@ -125,6 +125,7 @@ def logout():
     return redirect('/')
 
 #--------------------------------------------REGISTRAR------------------------------------------
+
 @app.route('/registrar', methods=['POST', 'GET'])
 def registar():
     error=False
@@ -134,7 +135,8 @@ def registar():
             global Usuarios
             n = Usuario(request.form['nombre'],request.form['apellido'],request.form['usuario'],request.form['contrasena'],1)
             Usuarios.append(n)
-            return redirect('login')
+            a="r"
+            return render_template('login/registrar.html', error=a)
         else:
             return render_template('login/registrar.html', error=True)
     return render_template('login/registrar.html')
