@@ -51,7 +51,7 @@
 	<article>
 
 		<h2>{{titulo}}</h2>
-		<h3>{{categoria}}</h3>
+		<h3 style="font-family: Kaushan Script, cursive;">{{categoria}}</h3>
 
 		<ul>
 			<li><span class="icon icon-users"></span><span>1</span></li>
@@ -59,9 +59,9 @@
 			<li><span class="icon icon-level"></span><span>Dificultad</span></li>
 			<li><span class="icon icon-calories"></span><span>560</span></li>
 		</ul>
-		<h4>Resumen</h4>
+		<h4 style="font-family: Kaushan Script, serif;">Resumen</h4>
 		<p>{{resumen}}</p>
-		<h4>Ingredientes</h4>
+		<h4 style="font-family: Kaushan Script, serif;">Ingredientes</h4>
 		<div class="h">
 			<ol style= "list-style-type: circle">
 				{% for x in ingredientes %}		
@@ -69,7 +69,7 @@
 				{% endfor %}
 			</ol>
 		</div>
-		<h4>Preparación</h4>
+		<h4 style="font-family: Kaushan Script, serif;">Preparación</h4>
 		<div class="h">
 			<ol>
 				{% for i in preparacion %}
