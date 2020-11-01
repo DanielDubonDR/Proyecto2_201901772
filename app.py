@@ -12,7 +12,7 @@ Usuarios.append(Usuario('Daniel','Reginaldo','daniel','123',1))
 
 #----------------------------------------------VARIABLES GLOBALES---------------------------------------------------
 global id
-id=2
+id=3
 
 #-------------------------------------------RECETAS PREDETERMIANDAS-------------------------------------------------
 Recetas=[]
@@ -86,6 +86,20 @@ def verReceta(ID):
         return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'])
     return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
 
+#-------------------------------------------------------------INGRESAR RECETA-------------------------------------------------------
+@app.route('/ingresarReceta')
+def ingresarReceta():
+    return render_template('recetas/ingresar.html', uss=session['logueado'], tippo=session['tipo'], nombre=session['nombre'])
+
+@app.route('/ingresarReceta/add', methods=['POST'])
+def addReceta():
+    global id
+    nuevo=Receta(str(id),request.json['titulo'],request.json['resumen'],request.json['ingredientes'],request.json['preparacion'], request.json['tiempo'], request.json['imagen'], session['nombre'], request.json['categoria'])
+    Recetas.append(nuevo)
+    id=id+1
+    return jsonify({'message':'Se agrego la receta'})
+
+
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -135,8 +149,9 @@ def registar():
             global Usuarios
             n = Usuario(request.form['nombre'],request.form['apellido'],request.form['usuario'],request.form['contrasena'],1)
             Usuarios.append(n)
-            a="r"
-            return render_template('login/registrar.html', error=a)
+            '''a="r"
+            return render_template('login/registrar.html', error=a)'''
+            return redirect('login')
         else:
             return render_template('login/registrar.html', error=True)
     return render_template('login/registrar.html')

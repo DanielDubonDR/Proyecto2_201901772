@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CUK</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <section class="contenedor nav">
+                <div class="nombre" style="font-family: Lobster, serif; font-size: 19px;">
+                    {% if uss == None %}
+                    <p>CUK</p>
+                    {% else %}
+                    <p>{{nombre}}</p>
+                    {% endif %}
+                </div>
+                <div class="enlaces-header">
+                    <a href="/">Inicio</a>
+                    {% if uss == None %}
+                    <a href="#r">Recetas</a>
+                    <a href="/login">Iniciar Sesión</a>
+                    {% else %}
+                        {% if tippo == 0 %}
+                            <a href="#">Dashboard</a>
+                        {% endif %}
+                        {% if tippo == 1 %}
+                            <a href="#">Publicar Receta</a>
+                        {% endif %}
+                    <a href="/logout">Cerrar Sesión</a>
+                    {% endif %}
+                </div>
+                <div class="hamburguer">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </section>
+        </nav>
+        <div class="w3-margin-bottom">
+            <div class="w3-card-4 w3-display-middle" style="width: 70%; margin-top: 80px;">
+                <div class="w3-container w3-padding-16" style="width: 98%;">
+                    <input class="w3-input w3-border w3-round-large" id="titulo" required type="text" placeholder="Título de la receta">
+                    <br>
+                    <input class="w3-input w3-border w3-round-large" id="categoria" required type="text" placeholder="Categoria, ej: Postre, Bebida...">
+                    <br>
+                    <textarea class="w3-input w3-border w3-round-large" id="resumen" placeholder="Resumen de la receta" maxlength="120"></textarea>
+                    <br>
+                    <textarea class="w3-input w3-border w3-round-large " id="ingredientes" placeholder="Ingredientes ej: #1/2 cucharada de azúcar #4 pizcas de pimienta"></textarea>
+                    <br>
+                    <textarea class="w3-input w3-border w3-round-large" id="preparacion" placeholder="Preparación, para determinar cada paso de preparación usar # ej: #Cortar en juliana la cebolla #Cocinar a fuego lento" maxlength="120"></textarea>
+                    <br>
+                    <input class="w3-input w3-border w3-round-large" id="tiempo" required type="text" placeholder="Tiempo estimado de preparación">
+                    <br>
+                    <input class="w3-input w3-border w3-round-large" id="imagen" required type="text" placeholder="URL de la imagen">
+                </div>
+                <div class="w3-center w3-padding-16">
+                    <div class="w3-bar">
+                        <button class="w3-button w3-padding w3-indigo w3-round-large w3-ripple" onclick="addReceta()">Agregar Receta</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </header>
+    <script>
+        function addReceta()
+        {
+            var titulo = document.querySelector('#titulo').value
+            var categoria = document.querySelector('#categoria').value
+            var resumen = document.querySelector('#resumen').value
+            var ingredientes = document.querySelector('#ingredientes').value
+            var preparacion = document.querySelector('#preparacion').value
+            var tiempo = document.querySelector('#tiempo').value
+            var imagen = document.querySelector('#imagen').value
+            if(titulo!="" && categoria!=="" && resumen!=="" && ingredientes!=="" && preparacion!=="" && tiempo!=="" && imagen!=="")
+            {
+
+                var objeto = {
+                    'titulo':titulo,
+                    'categoria':categoria,
+                    'resumen':resumen,
+                    'ingredientes':ingredientes,
+                    'preparacion':preparacion,
+                    'tiempo':tiempo,
+                    'imagen':imagen
+                }
+                console.log(objeto)
+                fetch('/ingresarReceta/add', {
+                method: 'POST',
+                body: JSON.stringify(objeto), 
+                headers:{
+                    'Content-Type': 'application/json'
+                } 
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                    alert("Ocurrio un error")
+                })
+                .then(response =>{
+                    console.log('Success:', response);
+                    alert(response.message)
+                    location.reload
+                    //location.href="/perfil"
+                }) 
+            }
+            else{
+                alert('Llene todos los campos')
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/c15b744a04.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename = 'js/main.js')}}"></script>
+</body>
+
+</html>
