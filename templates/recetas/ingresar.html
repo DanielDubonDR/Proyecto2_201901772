@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CUK</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/officel/16/000000/cook-male.png" />
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/estilos.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
@@ -18,6 +19,9 @@
     <header>
         <nav>
             <section class="contenedor nav">
+                <div class="logo">
+                    <img src="https://img.icons8.com/officel/80/000000/cook-male.png"/>
+                </div>
                 <div class="nombre" style="font-family: Lobster, serif; font-size: 19px;">
                     {% if uss == None %}
                     <p>CUK</p>
@@ -54,9 +58,10 @@
                     <br>
                     <textarea class="w3-input w3-border w3-round-large" id="resumen" placeholder="Resumen de la receta" maxlength="120"></textarea>
                     <br>
-                    <textarea class="w3-input w3-border w3-round-large " id="ingredientes" placeholder="Ingredientes ej: #1/2 cucharada de azúcar #4 pizcas de pimienta"></textarea>
+                    <textarea class="w3-input w3-border w3-round-large " id="ingredientes" placeholder="Ingredientes. Para determinar cada ingrediente usar 
+                    # despues del primer ingrediente ej: 1/2 cucharada de azúcar #4 pizcas de pimienta #4 tazas de agua"></textarea>
                     <br>
-                    <textarea class="w3-input w3-border w3-round-large" id="preparacion" placeholder="Preparación, para determinar cada paso de preparación usar # ej: #Cortar en juliana la cebolla #Cocinar a fuego lento" maxlength="120"></textarea>
+                    <textarea class="w3-input w3-border w3-round-large" id="preparacion" placeholder="Preparación. Para determinar cada paso de preparación usar después de la primera instrucción # ej: Cortar en juliana la cebolla #Cocinar a fuego lento"></textarea>
                     <br>
                     <input class="w3-input w3-border w3-round-large" id="tiempo" required type="text" placeholder="Tiempo estimado de preparación">
                     <br>

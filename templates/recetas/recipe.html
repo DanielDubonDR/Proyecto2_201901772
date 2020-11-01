@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Receta</title>
+	<link rel="shortcut icon" href="https://img.icons8.com/officel/16/000000/cook-male.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link href="{{url_for('static', filename = 'css/receta.css')}}" rel="stylesheet">
@@ -14,6 +15,9 @@
 	<header>
         <nav>
             <section class="contenedor nav">
+				<div class="logo">
+                    <img src="https://img.icons8.com/officel/80/000000/cook-male.png"/>
+                </div>
                 <div class="nombre" style="font-family: Lobster, serif; font-size: 19px;">
                     {% if uss == None %}
                     <p>CUK</p>
