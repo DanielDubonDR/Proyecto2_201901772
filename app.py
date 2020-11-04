@@ -99,7 +99,10 @@ def addReceta():
     id=id+1
     return jsonify({'message':'Se agrego la receta'})
 
-
+#-------------------------------------------------------------DASHBOARD-------------------------------------------------------
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard/dash.html', uss=session['logueado'], tippo=session['tipo'], nombre=session['nombre'])
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
