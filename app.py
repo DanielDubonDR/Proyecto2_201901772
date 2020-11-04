@@ -102,7 +102,16 @@ def addReceta():
 #-------------------------------------------------------------DASHBOARD-------------------------------------------------------
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard/dash.html', uss=session['logueado'], tippo=session['tipo'], nombre=session['nombre'])
+    return render_template('dashboard/dashboard.html', nombre=session['nombre'], nrecetas=len(Recetas), nusuarios=len(Usuarios))
+
+@app.route('/dashboard/recetasPublicadas')
+def recetasPublicadas():
+    return render_template('dashboard/recetasPublicadas.html', nombre=session['nombre'], nrecetas=len(Recetas), recipes=Recetas)
+
+@app.route('/dashboard/editarReceta/<string:ID>')
+def editarReceta(ID):
+    temp=Recetas[int(ID)]
+    return render_template('dashboard/editarRecetas.html', nombre=session['nombre'], recipe=temp)
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
