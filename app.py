@@ -122,6 +122,10 @@ def eliminarReceta(ID):
         if ID == Recetas[i].getId():
             del Recetas[i]
             return redirect("/dashboard/recetasPublicadas")
+
+@app.route('/dashboard/usuarios')
+def usuariosRegistrados():
+    return render_template('dashboard/usuarios.html', nombre=session['nombre'], nusuarios=len(Usuarios), users=Usuarios) 
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
