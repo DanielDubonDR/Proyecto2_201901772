@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/default-css.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
     <!-- modernizr css -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 </head>
@@ -38,7 +39,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="index.html"><img src="https://img.icons8.com/officel/100/000000/cook-male.png" alt="logo"></a>
+                    <a href="/dashboard"><img src="https://img.icons8.com/officel/100/000000/cook-male.png" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">
@@ -87,7 +88,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                        
+                        <h6 class="page-title pull-right" style="font-family: Lobster, serif;" >CUK</h6>
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
@@ -193,7 +194,7 @@
                                                     <td>
                                                         <ul class="d-flex justify-content-center">
                                                             <li class="mr-3"><a href="/dashboard/editarReceta/{{Receta.id}}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                            <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                            <li><a href="/dashboard/recetas/eliminar/{{Receta.id}}" class="text-danger"><i class="ti-trash"></i></a></li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -211,7 +212,23 @@
                
         	</div>
         	<!-- main content area end -->
-
+    <script>
+        function Eliminar(id){       
+        fetch(`/dashboard/recetas/eliminar/${id}`, {
+        method: 'DELETE',
+        }).then(res => res.json())
+        .catch(error => {
+            console.error('Error:', error)
+            alert("Ocurrio un error")
+        })
+        .then(response =>{
+            console.log('Success:', response);
+            alert(response.message)
+            location.reload
+            //location.href="/dashboard/recetasPublicadas"
+        }) 
+    }
+    </script>
     <!-- jquery latest version -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <!-- bootstrap 4 js -->

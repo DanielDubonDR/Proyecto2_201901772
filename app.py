@@ -13,7 +13,6 @@ Usuarios.append(Usuario('Daniel','Reginaldo','daniel','123',1))
 #----------------------------------------------VARIABLES GLOBALES---------------------------------------------------
 global id
 id=3
-
 #-------------------------------------------RECETAS PREDETERMIANDAS-------------------------------------------------
 Recetas=[]
 resumen1="Es un guiso correspondiente a la gastronomía de Yucatán,​ basado en carne de cerdo adobada en achiote, envuelta en hoja de plátano y cocida dentro de un horno de tierra usando una técnica prehispánica conocida como pib."
@@ -39,14 +38,12 @@ def validarCredenciales(user, password):
     for User in Usuarios:
         if User.getUsuario()==user and User.getContrasena()==password:
             return User
-            break
     return None
 
 def validarUsuario(user):
     for User in Usuarios:
         if User.getUsuario()==user:
             return True
-            break
     return False
 
 #------------------------------------------------------API-REST-----------------------------------------------------
@@ -112,6 +109,19 @@ def recetasPublicadas():
 def editarReceta(ID):
     temp=Recetas[int(ID)]
     return render_template('dashboard/editarRecetas.html', nombre=session['nombre'], recipe=temp)
+
+@app.route('/dashboard/recetas/editar/<string:IDA>', methods=['PUT'])
+def edit(IDA):
+    nuevo=Receta(IDA,request.json['titulo'],request.json['resumen'],request.json['ingredientes'],request.json['preparacion'], request.json['tiempo'], request.json['imagen'], Recetas[int(IDA)].getAutor(), request.json['categoria'])
+    Recetas[int(IDA)]=nuevo
+    return jsonify({'message':'Se modifico la receta'})
+
+@app.route('/dashboard/recetas/eliminar/<string:ID>')
+def eliminarReceta(ID):
+    for i in range(len(Recetas)):
+        if ID == Recetas[i].getId():
+            del Recetas[i]
+            return redirect("/dashboard/recetasPublicadas")
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():

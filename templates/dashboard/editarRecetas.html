@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/responsive.css')}}">
     <!-- modernizr css -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 </head>
 
 <body>
@@ -89,7 +90,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                        
+                        <h6 class="page-title pull-right" style="font-family: Lobster, serif;" >CUK</h6>
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
@@ -156,27 +157,79 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Editar recetas</h4>
-                            <input class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Titulo de la receta" value="{{recipe.titulo}}">
-                            <input class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Categoria, ej: Postre, Bebida..." value="{{recipe.categoria}}">
-                            <textarea class="form-control " aria-label="With textarea" placeholder="Resumen de la receta">{{recipe.resumen}}</textarea>
+                            <h6 class="text-primary">Titulo de la receta</h6>
+                            <input id="titulo" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Titulo de la receta" value="{{recipe.titulo}}">
+                            <h6 class="text-primary">Categoria</h6>
+                            <input id="categoria" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Categoria, ej: Postre, Bebida..." value="{{recipe.categoria}}">
+                            <h6 class="text-primary">Resumen</h6>
+                            <textarea id="resumen" class="form-control " aria-label="With textarea" placeholder="Resumen de la receta">{{recipe.resumen}}</textarea>
                             <br>
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Ingredientes. Para determinar cada ingrediente usar # despues del primer ingrediente ej: 1/2 cucharada de azúcar #4 pizcas de pimienta #4 tazas de agua">{{recipe.ingredientes}}</textarea>
+                            <h6 class="text-primary">Ingredientes</h6>
+                            <textarea id="ingredientes" class="form-control" aria-label="With textarea" placeholder="Ingredientes. Para determinar cada ingrediente usar # despues del primer ingrediente ej: 1/2 cucharada de azúcar #4 pizcas de pimienta #4 tazas de agua">{{recipe.ingredientes}}</textarea>
                             <br>
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Preparación. Para determinar cada paso de preparación usar después de la primera instrucción # ej: Cortar en juliana la cebolla #Cocinar a fuego lento">{{recipe.preparacion}}</textarea>
+                            <h6 class="text-primary">Preparación</h6>
+                            <textarea id="preparacion" class="form-control" aria-label="With textarea" placeholder="Preparación. Para determinar cada paso de preparación usar después de la primera instrucción # ej: Cortar en juliana la cebolla #Cocinar a fuego lento">{{recipe.preparacion}}</textarea>
                             <br>
-                            <input class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Tiempo estimado de preparación" value="{{recipe.tiempo}}">
-                            <input class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="URL de la imagen" value="{{recipe.autor}}">
-                            <button type="button" class="btn btn-rounded btn-success mb-3">Guardar Cambios</button>
+                            <h6 class="text-primary">Tiempo estimado</h6>
+                            <input id="tiempo" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Tiempo estimado de preparación" value="{{recipe.tiempo}}">
+                            <h6 class="text-primary">URL de la imagen</h6>
+                            <input id="imagen" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="URL de la imagen" value="{{recipe.imagen}}">
+                            <div class="pull-right">
+                                <button type="button" onclick="editarReceta()" class="btn btn-rounded btn-success mb-3 ">Guardar Cambios</button>
+                                <button type="button" onclick="location.href='/dashboard/recetasPublicadas'" class="btn btn-rounded btn-danger mb-3">Cancelar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Input Sizes Rounded end -->
-               
-               
-               
         	</div>
         	<!-- main content area end -->
+    <script>
+        function editarReceta()
+        {
+            var titulo = document.querySelector('#titulo').value
+            var categoria = document.querySelector('#categoria').value
+            var resumen = document.querySelector('#resumen').value
+            var ingredientes = document.querySelector('#ingredientes').value
+            var preparacion = document.querySelector('#preparacion').value
+            var tiempo = document.querySelector('#tiempo').value
+            var imagen = document.querySelector('#imagen').value
+            if(titulo!="" && categoria!=="" && resumen!=="" && ingredientes!=="" && preparacion!=="" && tiempo!=="" && imagen!=="")
+            {
 
+                var objeto = {
+                    'titulo':titulo,
+                    'categoria':categoria,
+                    'resumen':resumen,
+                    'ingredientes':ingredientes,
+                    'preparacion':preparacion,
+                    'tiempo':tiempo,
+                    'imagen':imagen
+                }
+                console.log(objeto)
+                fetch(`/dashboard/recetas/editar/{{recipe.id}}`, {
+                method: 'PUT',
+                body: JSON.stringify(objeto), 
+                headers:{
+                    'Content-Type': 'application/json'
+                } 
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                    alert("Ocurrio un error")
+                })
+                .then(response =>{
+                    console.log('Success:', response);
+                    alert(response.message)
+                    location.reload
+                    location.href="/dashboard/recetasPublicadas"
+                }) 
+            }
+            else{
+                alert('Llene todos los campos')
+            }
+        }
+    </script> 
     <!-- jquery latest version -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <!-- bootstrap 4 js -->
