@@ -1,9 +1,10 @@
 from flask import Flask, render_template, jsonify, request, redirect, session
 from flask_cors import CORS
-import time
+import datetime
 #------------------------------------IMPORTANDO CLASES DONDE ALMACENO DATOS-----------------------------------------
 from Datos.Usuario import Usuario
 from Datos.Receta import Receta
+from Datos.Comentario import Comentario
 
 #---------------------------------------------USUARIOS PRUEBA-------------------------------------------------------
 Usuarios=[]
@@ -32,6 +33,15 @@ resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicio
 Recetas.append(Receta("0","Cochinita Pibil",resumen1,ingredientes1,preparacion1,"1 hora","https://dam.cocinafacil.com.mx/wp-content/uploads/2019/08/tacos-de-cochinita.jpg","Daniel","Comida Mexicana"))
 Recetas.append(Receta("1","Pepián",resumen2,"none","none","2 horas","https://img-global.cpcdn.com/recipes/c4361919b103df7a/1200x630cq70/photo.jpg","Reginaldo","Platillo típico"))
 Recetas.append(Receta("2","Kak'ik",resumen3,"none","none","1 hora y 30 minutos","https://i.pinimg.com/originals/25/00/39/25003904d6b783d8645206af2d936b2c.jpg", "Sulvey","Platillo tipico"))
+
+#--------------------------------------------------COMENTARIOS-----------------------------------------------------------
+x = datetime.datetime.now()
+fechActual=x.strftime("%b")+" "+x.strftime("%d")+", "+x.strftime("%Y")+", "+x.strftime("%I")+":"+x.strftime("%M")+" "+x.strftime("%p")
+
+Comentarios=[]
+Comentarios.append(Comentario("0","Daniel","Me gusta esta receta, la preparare",fechActual))
+Comentarios.append(Comentario("1","Gatito Master","Me gusta esta receta, la preparare",fechActual))
+Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la preparare",fechActual))
 
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
@@ -71,6 +81,7 @@ def verReceta(ID):
     autor=""
     for recipe in Recetas:
         if recipe.getId()==ID:
+            idd=recipe.getId()
             title=recipe.getTitulo()
             resumen=recipe.getResumen()
             ingredientes=recipe.getIngredientes()
@@ -80,7 +91,7 @@ def verReceta(ID):
             categoria=recipe.getCategoria()
             autor=recipe.getAutor()
     if 'logueado' in session:
-        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'])
+        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'], coment=Comentarios, identificador=idd)
     return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
 
 #-------------------------------------------------------------INGRESAR RECETA-------------------------------------------------------
