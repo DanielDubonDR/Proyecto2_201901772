@@ -126,6 +126,20 @@ def eliminarReceta(ID):
 @app.route('/dashboard/usuarios')
 def usuariosRegistrados():
     return render_template('dashboard/usuarios.html', nombre=session['nombre'], nusuarios=len(Usuarios), users=Usuarios) 
+
+@app.route('/dashboard/usuarios/registrar')
+def usuariosAgregar():
+    return render_template('dashboard/agregarAdmin.html', nombre=session['nombre']) 
+
+@app.route('/dashboard/newUser/<string:usuario>', methods=['POST'])
+def agregarAdmin(usuario):
+    encontrado=validarUsuario(usuario)
+    if encontrado==False:
+        n=Usuario(request.json['nombre'],request.json['apellido'],request.json['usuario'],request.json['password'],0)
+        Usuarios.append(n)
+        return jsonify({'message':'Se registro correctamente'})
+    else:
+        return jsonify({'message':'Este usuario ya esta registrado'}) 
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
