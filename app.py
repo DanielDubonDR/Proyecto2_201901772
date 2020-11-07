@@ -151,6 +151,14 @@ def agregarAdmin(usuario):
         return jsonify({'message':'Se registro correctamente'})
     else:
         return jsonify({'message':'Este usuario ya esta registrado'}) 
+
+#---------------------------------------------------COMENTARIO------------------------------------------------
+@app.route('/comentario/add/<string:ID>', methods=['POST'])
+def addComentario(ID):
+    nuevo=Comentario(ID,session['nombre'],request.json['comentario'],fechActual)
+    Comentarios.append(nuevo)
+    return jsonify({'message':'Se agrego el comentario'})
+
 #---------------------------------------------------MANEJO DE LOGIN------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():

@@ -93,11 +93,11 @@
 {% if uss != None %}
 <div class="recipe-card">
 	<article>
-		<textarea cols="92" rows="3" placeholder="Comentar..."></textarea>
+		<textarea id="comentario" cols="92" rows="3" placeholder="Comentar..."></textarea>
 		<br>
 		<br>
 		<div class="pull-right">
-			<button type="button" class="btn btn-primary">Publicar Comentario</button>
+			<button onclick="add()" type="button" class="btn btn-primary">Publicar Comentario</button>
 		</div>
 	</article>
 </div>
@@ -119,5 +119,40 @@
 	</article>
 </div>
 {% endif %}
+
+<script>
+	function add()
+	{
+		var comentario = document.querySelector('#comentario').value
+		if(comentario!="")
+		{
+
+			var objeto = {
+				'comentario':comentario
+			}
+			console.log(objeto)
+			fetch(`/comentario/add/{{identificador}}`, {
+			method: 'POST',
+			body: JSON.stringify(objeto), 
+			headers:{
+				'Content-Type': 'application/json'
+			} 
+			}).then(res => res.json())
+			.catch(error => {
+				console.error('Error:', error)
+				alert("Ocurrio un error")
+			})
+			.then(response =>{
+				console.log('Success:', response);
+				//alert(response.message)
+				//location.reload()
+				location.href="/receta/{{identificador}}"
+			}) 
+		}
+		else{
+			alert('Llene todos los campos')
+		}
+	}
+</script>
 </body>
 </html>
