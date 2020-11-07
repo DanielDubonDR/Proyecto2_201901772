@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
     <!-- modernizr css -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
 </head>
 
 <body>
@@ -201,6 +202,16 @@
                                                 {% endfor%}
                                             </tbody>
                                         </table>
+                                        <br>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="file" accept=".csv">
+                                            <label class="custom-file-label" for="inputGroupFile04">Cargar Recetas</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" onclick="cargarArchivo()" type="button">Cargar</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +222,9 @@
                
                
         	</div>
-        	<!-- main content area end -->
+            <!-- main content area end -->
+            <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>        
     <script>
         function Eliminar(id){       
         fetch(`/dashboard/recetas/eliminar/${id}`, {
@@ -228,9 +241,99 @@
             //location.href="/dashboard/recetasPublicadas"
         }) 
     }
+
+    //Tenemos nuestra funcion de cargarArchivo
+      //Este metodo fue encontrado en internet
+      function cargarArchivo(){
+        //Usamos $(nombre del input donde esta el archivo).parse
+        $('#file').parse({
+      		config: {
+            //Agregamos las configuraciones y le decimos
+            //Quien es el delimitador y que hara luego de leer el archivo
+            //En este caso usamos delimitador "," y que haga el metodo GuardarCanciones
+			     delimiter: ",",
+			     complete: agregarRecetas,
+		      },
+          //Esto es lo que hara antes de leer el archivo
+      		before: function(file, inputElem)
+      		{
+      			console.log("Parsing file...", file);
+      		},
+          //Esto es lo que hara si encuentra un error
+      		error: function(err, file)
+      		{
+      			console.log("ERROR:", err, file);
+      		},
+          //Esto es lo que hara cuando termina de parsear el archivo
+      		complete: function()
+      		{
+            console.log("Done with all files");
+          }
+        });
+      }
+
+      //En este caso hacemos una funcion, ignoren el async, fueron pruebas mias
+      async function agregarRecetas(results) {
+        //En este caso results es un objeto con nuestros datos parseados
+        //Y el atributo .data es el que tiene lo que necesitamos
+        console.log(results.data)
+        var data = results.data;
+        var val = true
+        //Data al final termina siendo un arreglo de arreglos
+        //data[i] = La fila del archivo csv
+        //data[i][n] = Donde n representa la columan en cuestion
+        //Leemos las filas de data
+        for (i = 0; i < data.length; i++) {
+          //Hacemos el proceso necesarioa para guardar un dato en la API
+            var autor = data[i][0]
+            var titulo = data[i][1]
+            var resumen = data[i][2]
+            var ingredientes = data[i][3]
+            var procedimiento = data[i][4]
+            var tiempo = data[i][5]
+            var url = data[i][6]
+            var objeto = {
+                'autor': autor,
+                'titulo': titulo,
+                'resumen': resumen,
+                'ingredientes': ingredientes,
+                'procedimiento': procedimiento,
+                'tiempo': tiempo,
+                'url': url       
+             }
+            console.log(objeto)
+            //Aplicamos nuestro metodo magico con sus 3 metodos, then, catch, then
+            fetch('http://localhost:3000/Cancion', {
+            method: 'POST',
+            body: JSON.stringify(objeto),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+            }).then(res => res.json())
+            .catch(error => {
+                console.error('Error:', error)
+                alert("Ocurrio un error al consumir la API, revise la consola")
+                val = false
+            })
+            .then(response =>{
+                console.log('Success:', response);
+            }) 
+            }
+            //En mi caso, como yo lo programe, es que si hay un error a la hora de guardar las canciones
+            //No me muestre nada, pero si las guarda, esto es meramente visual
+            if(val = true)
+            {
+              //Usamos el alert para mandar respuestas del navegador hacia el usuario
+              //Unicamente tenemos que mandar el texto
+                alert("Se agregaron las canciones exitosamente")
+                // Llamamos el metodo para actualizar la tabla
+            }
+    }
     </script>
+
+   
     <!-- jquery latest version -->
-    <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
+    
     <!-- bootstrap 4 js -->
     <script src="{{url_for('static', filename = 'assets/js/popper.min.js')}}"></script>
     <script src="{{url_for('static', filename = 'assets/js/bootstrap.min.js')}}"></script>

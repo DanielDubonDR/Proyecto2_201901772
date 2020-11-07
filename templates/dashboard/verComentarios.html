@@ -56,7 +56,7 @@
                                     <li><a href="index3.html">Generar reporte de recetas</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/dashboard/comentarios"><i class=" ti-comment-alt "></i> <span>Comentarios</span></a></li>
+                            <li class="active"><a href="/dashboard/comentarios"><i class=" ti-comment-alt "></i> <span>Comentarios</span></a></li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-thumb-up "></i><span>Reacciones</span></a>
                                 <ul class="collapse">
@@ -65,11 +65,11 @@
                                 </ul>
                             </li>
                             
-                            <li class="active">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class=" ti-user "></i><span>Usuarios</span></a>
                                 <ul class="collapse">
                                     <li><a href="/dashboard/usuarios">Usuarios Registrados</a></li>
-                                    <li class="active"><a href="/dashboard/usuarios/registrar">Registrar Usuario</a></li>
+                                    <li ><a href="/dashboard/usuarios/registrar">Registrar Usuario</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -157,15 +157,20 @@
                 <br>
                 <div class="card">
                     <div class="card-body">
+                        <h2>{{title}}</h2>
+                        <br>
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            {% for x in comentarios %}
+                            {% if x.id==ident %}
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
+                                    <h5 class="mb-1">{{x.usuario}}</h5>
+                                    <small>{{x.fecha}}</small>
                                 </div>
-                                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
+                                <p class="mb-1">{{x.texto}}</p>
                             </a>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

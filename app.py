@@ -39,9 +39,10 @@ x = datetime.datetime.now()
 fechActual=x.strftime("%b")+" "+x.strftime("%d")+", "+x.strftime("%Y")+", "+x.strftime("%I")+":"+x.strftime("%M")+" "+x.strftime("%p")
 
 Comentarios=[]
-Comentarios.append(Comentario("0","Daniel","Me gusta esta receta, la preparare",fechActual))
-Comentarios.append(Comentario("1","Gatito Master","Me gusta esta receta, la preparare",fechActual))
-Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la preparare",fechActual))
+Comentarios.append(Comentario("0","Daniel","Me gusta esta receta, la prepararé",fechActual))
+Comentarios.append(Comentario("0","Reginaldo","Se ve delicioso",fechActual))
+Comentarios.append(Comentario("1","Gatito Master","Me gusta esta receta, la prepararé",fechActual))
+Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la prepararé",fechActual))
 
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
@@ -156,9 +157,10 @@ def agregarAdmin(usuario):
 def mostrarComentarios():
     return render_template('dashboard/comentarios.html', nombre=session['nombre'], recipes=Recetas, ncomentarios=len(Comentarios))
 
-@app.route('/dashboard/vercomentarios')
-def verComentarios():
-    return render_template('dashboard/verComentarios.html', nombre=session['nombre']) 
+@app.route('/dashboard/vercomentarios/<string:ID>')
+def verComentarios(ID):
+    title=Recetas[int(ID)].getTitulo()
+    return render_template('dashboard/verComentarios.html', nombre=session['nombre'], comentarios=Comentarios, ident=ID, title=title) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):
@@ -177,7 +179,10 @@ def login():
             session['nombre']=usuario.getNombre()
             session['apellido']=usuario.getApellido()
             session['tipo']=usuario.getTipo()
-            return redirect('/')
+            if usuario.getTipo()==0:
+                return redirect('/dashboard')
+            else:
+                return redirect('/')
         else:
             error = 'Contrasena invalida'
             return render_template('login/login.html', error=error)
