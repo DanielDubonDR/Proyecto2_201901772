@@ -110,7 +110,7 @@ def addReceta():
 #-------------------------------------------------------------DASHBOARD-------------------------------------------------------
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard/dashboard.html', nombre=session['nombre'], nrecetas=len(Recetas), nusuarios=len(Usuarios))
+    return render_template('dashboard/dashboard.html', nombre=session['nombre'], nrecetas=len(Recetas), nusuarios=len(Usuarios), ncomentarios=len(Comentarios))
 
 @app.route('/dashboard/recetasPublicadas')
 def recetasPublicadas():
@@ -152,6 +152,13 @@ def agregarAdmin(usuario):
     else:
         return jsonify({'message':'Este usuario ya esta registrado'}) 
 
+@app.route('/dashboard/comentarios')
+def mostrarComentarios():
+    return render_template('dashboard/comentarios.html', nombre=session['nombre'], recipes=Recetas, ncomentarios=len(Comentarios))
+
+@app.route('/dashboard/vercomentarios')
+def verComentarios():
+    return render_template('dashboard/verComentarios.html', nombre=session['nombre']) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):
