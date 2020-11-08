@@ -52,7 +52,6 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-cta-center "></i><span>Recetas</span></a>
                                 <ul class="collapse">
                                     <li class="active"><a href="/dashboard/recetasPublicadas">Recetas Publicadas</a></li>
-                                    <li><a href="index2.html">Cargar recetas</a></li>
                                     <li><a href="index3.html">Generar reporte de recetas</a></li>
                                 </ul>
                             </li>
@@ -172,6 +171,16 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file" accept=".csv">
+                                    <label class="custom-file-label" for="inputGroupFile04">Cargar Recetas</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" onclick="cargarArchivo()" type="button">Cargar</button>
+                                    </div>
+                                </div>
+                                <br>
                                 <h4 class="header-title">Recetas Publicadas</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
@@ -202,16 +211,8 @@
                                                 {% endfor%}
                                             </tbody>
                                         </table>
-                                        <br>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="file" accept=".csv">
-                                            <label class="custom-file-label" for="inputGroupFile04">Cargar Recetas</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" onclick="cargarArchivo()" type="button">Cargar</button>
-                                            </div>
-                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
