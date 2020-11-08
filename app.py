@@ -93,7 +93,7 @@ def verReceta(ID):
             autor=recipe.getAutor()
     if 'logueado' in session:
         return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'], coment=Comentarios, identificador=idd)
-    return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor)
+    return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, coment=Comentarios, identificador=idd)
 
 #-------------------------------------------------------------INGRESAR RECETA-------------------------------------------------------
 @app.route('/ingresarReceta')
@@ -161,6 +161,14 @@ def mostrarComentarios():
 def verComentarios(ID):
     title=Recetas[int(ID)].getTitulo()
     return render_template('dashboard/verComentarios.html', nombre=session['nombre'], comentarios=Comentarios, ident=ID, title=title) 
+
+@app.route('/dashboard/cargaMasiva', methods=['POST'])
+def cargaMasiva():
+    global id
+    a=Receta(str(id),request.json['titulo'],request.json['resumen'],request.json['ingredientes'],request.json['procedimiento'],request.json['tiempo'],request.json['url'],request.json['autor'],"SIN CATEGORIA")
+    Recetas.append(a)
+    id=id+1
+    return jsonify({'message':'Se agregaron las recetas'}) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):

@@ -242,29 +242,20 @@
         }) 
     }
 
-    //Tenemos nuestra funcion de cargarArchivo
-      //Este metodo fue encontrado en internet
       function cargarArchivo(){
-        //Usamos $(nombre del input donde esta el archivo).parse
         $('#file').parse({
       		config: {
-            //Agregamos las configuraciones y le decimos
-            //Quien es el delimitador y que hara luego de leer el archivo
-            //En este caso usamos delimitador "," y que haga el metodo GuardarCanciones
 			     delimiter: ",",
 			     complete: agregarRecetas,
 		      },
-          //Esto es lo que hara antes de leer el archivo
       		before: function(file, inputElem)
       		{
       			console.log("Parsing file...", file);
       		},
-          //Esto es lo que hara si encuentra un error
       		error: function(err, file)
       		{
       			console.log("ERROR:", err, file);
       		},
-          //Esto es lo que hara cuando termina de parsear el archivo
       		complete: function()
       		{
             console.log("Done with all files");
@@ -272,19 +263,11 @@
         });
       }
 
-      //En este caso hacemos una funcion, ignoren el async, fueron pruebas mias
       async function agregarRecetas(results) {
-        //En este caso results es un objeto con nuestros datos parseados
-        //Y el atributo .data es el que tiene lo que necesitamos
         console.log(results.data)
         var data = results.data;
         var val = true
-        //Data al final termina siendo un arreglo de arreglos
-        //data[i] = La fila del archivo csv
-        //data[i][n] = Donde n representa la columan en cuestion
-        //Leemos las filas de data
         for (i = 0; i < data.length; i++) {
-          //Hacemos el proceso necesarioa para guardar un dato en la API
             var autor = data[i][0]
             var titulo = data[i][1]
             var resumen = data[i][2]
@@ -302,8 +285,7 @@
                 'url': url       
              }
             console.log(objeto)
-            //Aplicamos nuestro metodo magico con sus 3 metodos, then, catch, then
-            fetch('http://localhost:3000/Cancion', {
+            fetch('/dashboard/cargaMasiva', {
             method: 'POST',
             body: JSON.stringify(objeto),
             headers:{
@@ -317,16 +299,12 @@
             })
             .then(response =>{
                 console.log('Success:', response);
+                location.reload()
             }) 
             }
-            //En mi caso, como yo lo programe, es que si hay un error a la hora de guardar las canciones
-            //No me muestre nada, pero si las guarda, esto es meramente visual
             if(val = true)
             {
-              //Usamos el alert para mandar respuestas del navegador hacia el usuario
-              //Unicamente tenemos que mandar el texto
-                alert("Se agregaron las canciones exitosamente")
-                // Llamamos el metodo para actualizar la tabla
+                alert("Se agregaron las recetas correctamente")
             }
     }
     </script>
