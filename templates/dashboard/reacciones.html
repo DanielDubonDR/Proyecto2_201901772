@@ -6,22 +6,23 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/metisMenu.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css">
+    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/officel/16/000000/cook-male.png">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/metisMenu.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/slicknav.min.css')}}">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
-    <link rel="stylesheet" href="assets/css/typography.css">
-    <link rel="stylesheet" href="assets/css/default-css.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/typography.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/default-css.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/responsive.css')}}">
     <!-- modernizr css -->
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="{{url_for('static', filename = 'assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 </head>
 
 <body>
@@ -46,28 +47,29 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li><a href="dashboard.html"><i class="ti-dashboard "></i> <span>Dashboard</span></a></li>
+                            <li><a href="/dashboard"><i class="ti-dashboard "></i> <span>Dashboard</span></a></li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-cta-center "></i><span>Recetas</span></a>
                                 <ul class="collapse">
-                                    <li><a href="recetasPublicadas.html">Recetas Publicadas</a></li>
+                                    <li><a href="/dashboard/recetasPublicadas">Recetas Publicadas</a></li>
                                     
-                                    <li><a href="index3.html">Generar reporte de recetas</a></li>
+                                    <li><a href="/dashboard/generarReportes">Generar reporte de recetas</a></li>
                                 </ul>
                             </li>
-                            <li ><a href="comentarios.html"><i class=" ti-comment-alt "></i> <span>Comentarios</span></a></li>
+                            <li><a href="/dashboard/comentarios"><i class=" ti-comment-alt "></i> <span>Comentarios</span></a></li>
                             <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-thumb-up "></i><span>Reacciones</span></a>
                                 <ul class="collapse">
-                                    <li class="active"><a href="reacciones.html">Ver reacciones</a></li>
-                                    <li><a href="linechart.html">Agregar reacciones</a></li>
+                                    <li><a href="reacciones.html">Ver reacciones</a></li>
+                                    <li class="active"><a href="/dashboard/agregarReacciones">Agregar reacciones</a></li>
                                 </ul>
                             </li>
+                            
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class=" ti-user "></i><span>Usuarios</span></a>
                                 <ul class="collapse">
-                                    <li><a href="usuarios.html">Usuarios Registrados</a></li>
-                                    <li><a href="agregarAdmin.html">Registrar Usuario</a></li>
+                                    <li><a href="/dashboard/usuarios">Usuarios Registrados</a></li>
+                                    <li><a href="/dashboard/usuarios/registrar">Registrar Usuario</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -88,7 +90,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                        
+                        <h6 class="page-title pull-right" style="font-family: Lobster, serif;" >CUK</h6>
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
@@ -138,11 +140,11 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Daniel<i class="fa fa-angle-down"></i></h4>
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{nombre}}<i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Vista de Usuario</a>
-                                <a class="dropdown-item" href="#">Modificar Perfil</a>
-                                <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                                <a class="dropdown-item" href="/">Vista de Usuario</a>
+                                <a class="dropdown-item" href="/perfil">Modificar Perfil</a>
+                                <a class="dropdown-item" href="/logout">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -154,27 +156,25 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Recetas Publicadas</h4>
+                                <h4 class="header-title">Reacciones</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover progress-table text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">Receta</th>
-                                                    <th scope="col">Reacciones</th>
+                                                    <th scope="col">Reacción</th>
+                                                    <th scope="col">Icono</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for s in reacciones %}
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li class="mr-3"><a href="editarRecetas.html" class="text-secondary"><i class=" ti-eye "></i></a></li>
-                                                        </ul>
-                                                    </td>
+                                                    <td>{{s.id}}</td>
+                                                    <td>{{s.reaccion}}</td>
+                                                    <td><img src="{{s.icono}}"/></td>
                                                 </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -190,17 +190,17 @@
         	<!-- main content area end -->
 
     <!-- jquery latest version -->
-    <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <!-- bootstrap 4 js -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/metisMenu.min.js"></script>
-    <script src="assets/js/jquery.slimscroll.min.js"></script>
-    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="{{url_for('static', filename = 'assets/js/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/metisMenu.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/jquery.slicknav.min.js')}}"></script>
     <!-- others plugins -->
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/scripts.js"></script>
+    <script src="{{url_for('static', filename = 'assets/js/plugins.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/scripts.js')}}"></script>
 </body>
 
 </html>

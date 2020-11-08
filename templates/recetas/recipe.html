@@ -91,6 +91,17 @@
 </div>
 
 {% if uss != None %}
+
+<div class="recipe-card">
+	<article>
+		{% for z in reacciones %}
+		<div class="btn-group mb-xl-3" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-sm btn-primary"><img src="{{z.icono}}"/>&nbsp{{z.reaccion}}</button>
+		</div>
+		{% endfor %}
+	</article>
+</div>
+
 <div class="recipe-card">
 	<article>
 		<textarea id="comentario" cols="92" rows="3" placeholder="Comentar..."></textarea>

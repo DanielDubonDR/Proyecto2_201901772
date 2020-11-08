@@ -5,6 +5,7 @@ import datetime
 from Datos.Usuario import Usuario
 from Datos.Receta import Receta
 from Datos.Comentario import Comentario
+from Datos.Reaccion import Reaccion
 
 #---------------------------------------------USUARIOS PRUEBA-------------------------------------------------------
 Usuarios=[]
@@ -43,6 +44,12 @@ Comentarios.append(Comentario("0","Daniel","Me gusta esta receta, la prepararé"
 Comentarios.append(Comentario("0","Reginaldo","Se ve delicioso",fechActual))
 Comentarios.append(Comentario("1","Gatito Master","Me gusta esta receta, la prepararé",fechActual))
 Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la prepararé",fechActual))
+
+#---------------------------------------------------REACCIONES------------------------------------------------------------
+nReaccion=2
+Reacciones=[]
+Reacciones.append(Reaccion("0","ME GUSTA","https://img.icons8.com/color/18/000000/facebook-like.png", 1))
+Reacciones.append(Reaccion("1","NO ME GUSTA","https://img.icons8.com/color/18/000000/thumbs-down.png", 1))
 
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
@@ -92,7 +99,7 @@ def verReceta(ID):
             categoria=recipe.getCategoria()
             autor=recipe.getAutor()
     if 'logueado' in session:
-        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'], coment=Comentarios, identificador=idd)
+        return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'], coment=Comentarios, identificador=idd, reacciones=Reacciones )
     return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, coment=Comentarios, identificador=idd)
 
 #-------------------------------------------------------------INGRESAR RECETA-------------------------------------------------------
@@ -169,6 +176,10 @@ def cargaMasiva():
     Recetas.append(a)
     id=id+1
     return jsonify({'message':'Se agregaron las recetas'}) 
+
+@app.route('/dashboard/agregarReacciones')
+def agregarReacciones():
+    return render_template('dashboard/reacciones.html', nombre=session['nombre'], reacciones=Reacciones)
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):
