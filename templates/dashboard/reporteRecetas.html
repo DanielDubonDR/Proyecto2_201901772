@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/officel/16/000000/cook-male.png">
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'assets/css/font-awesome.min.css')}}">
@@ -23,6 +22,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
     <!-- modernizr css -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
 </head>
 
 <body>
@@ -48,12 +48,11 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li><a href="/dashboard"><i class="ti-dashboard "></i> <span>Dashboard</span></a></li>
-                            <li>
+                            <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-cta-center "></i><span>Recetas</span></a>
                                 <ul class="collapse">
                                     <li ><a href="/dashboard/recetasPublicadas">Recetas Publicadas</a></li>
-                                    
-                                    <li><a href="/dashboard/recetaReporte">Generar reporte de recetas</a></li>
+                                    <li class="active"><a href="/dashboard/recetaReporte">Generar reporte de recetas</a></li>
                                 </ul>
                             </li>
                             <li><a href="/dashboard/comentarios"><i class=" ti-comment-alt "></i> <span>Comentarios</span></a></li>
@@ -64,12 +63,11 @@
                                     <li><a href="/dashboard/agregarReacciones">Agregar reacciones</a></li>
                                 </ul>
                             </li>
-                            
-                            <li class="active">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class=" ti-user "></i><span>Usuarios</span></a>
                                 <ul class="collapse">
                                     <li><a href="/dashboard/usuarios">Usuarios Registrados</a></li>
-                                    <li class="active"><a href="/dashboard/usuarios/registrar">Registrar Usuario</a></li>
+                                    <li><a href="/dashboard/usuarios/registrar">Registrar Usuario</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -131,10 +129,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Usuarios</h4>
+                            <h4 class="page-title pull-left">Recetas</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="recetasPublicadas.html">Usuarios</a></li>
-                                <li><span>Registrar Administrador</span></li>
+                                <li><a href="index.html">Home</a></li>
+                                <li><span>Reporte</span></li>
                             </ul>
                         </div>
                     </div>
@@ -152,139 +150,178 @@
             </div>
             <!-- page title area end -->
             <div class="main-content-inner">
-                <!-- Input Sizes Rounded start -->
-                <div class="col-12 mt-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="header-title">Registrar Administrador</h4>
-                            <input required id="nombre" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Nombre">
-                            <input required id="apellido" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Apellido">
-                            <input required id="usuario" class="form-control form-control-lg input-rounded mb-4" type="text" placeholder="Usuario" onkeypress="return soloLetras(event);">
-                            <input required id="pass1" class="form-control form-control-lg input-rounded mb-4" type="password" placeholder="Contraseña">
-                            <input required id="pass2" class="form-control form-control-lg input-rounded mb-4" type="password" placeholder="Confirmar Contraseña">
-                            <div class="pull-right">
-                                <button type="button" onclick="agregar()" class="btn btn-rounded btn-success mb-3 ">Agregar Administrador</button>
-                                <button type="button" onclick="location.href='/dashboard/usuarios'" class="btn btn-rounded btn-danger mb-3">Cancelar</button>
+                 <!-- seo fact area start -->
+            <div id="cuerpo">
+                 <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6 mt-5 mb-3">
+                            <div class="card">
+                                <div class="seo-fact sbg1">
+                                    <div class="p-4 d-flex justify-content-between align-items-center">
+                                        <div class="seofct-icon">Recetas</div>
+                                        <h2>{{nrecetas}}</h2>
+                                    </div>
+                                    <canvas id="seolinechart1" height="10"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Input Sizes Rounded end -->
-               
-               
+                <!-- seo fact area end -->
+               <!-- Progress Table start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                
+                                <h4 class="header-title">Recetas Publicadas</h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover progress-table text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">Receta</th>
+                                                    <!-- <th scope="col">Fecha de Publicación</th> -->
+                                                    <th scope="col">Resumen</th>
+                                                    <th scope="col">Tiempo de preparación</th>
+                                                    <th scope="col">Autor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for Receta in recipes %}
+                                                <tr>
+                                                    <td>{{Receta.id}}</td>
+                                                    <td>{{Receta.titulo}}</td>
+                                                    <!--<td>09 / 07 / 2018</td>-->
+                                                    <td style="text-align: justify;">{{Receta.resumen}}</td>
+                                                    <td>{{Receta.tiempo}}</td>
+                                                    <td>{{Receta.autor}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Progress Table end --> 
+            </div>       
+                
+
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" id="rpt" class="btn btn-info btn-lg btn-block">Generar Reporte</button>
+                            </div>
+                        </div>
+                    </div>   
                
         	</div>
-        	<!-- main content area end -->
-
+            <!-- main content area end -->
+                  
     <script>
-        function agregar()
-        {
-            var nombre=document.querySelector('#nombre').value
-            var apellido=document.querySelector('#apellido').value
-            var usuario=document.querySelector('#usuario').value
-            var pass1=document.querySelector('#pass1').value
-            var pass2=document.querySelector('#pass2').value
+        function Eliminar(id){       
+        fetch(`/dashboard/recetas/eliminar/${id}`, {
+        method: 'DELETE',
+        }).then(res => res.json())
+        .catch(error => {
+            console.error('Error:', error)
+            alert("Ocurrio un error")
+        })
+        .then(response =>{
+            console.log('Success:', response);
+            alert(response.message)
+            location.reload
+            //location.href="/dashboard/recetasPublicadas"
+        }) 
+    }
 
-            if(nombre!=="" && apellido!=="" && usuario!=="" && pass1!="" && pass2!=="")
-            {
-                    if(pass1===pass2)
-                    {
-                        var objeto = {
-                        'nombre':nombre,
-                        'apellido':apellido,
-                        'usuario':usuario,
-                        'password':pass1
-                    }
-                    console.log(objeto)
-                    fetch(`/dashboard/newUser/${usuario}`, {
-                    method: 'POST',
-                    body: JSON.stringify(objeto), 
-                    headers:{
-                        'Content-Type': 'application/json'
-                    } 
-                    }).then(res => res.json())
-                    .catch(error => {
-                        console.error('Error:', error)
-                        alert("Ocurrio un error")
-                    })
-                    .then(response =>{
-                        console.log('Success:', response);
-                        alert(response.message)
-                        location.href="/dashboard/usuarios"
-                    }) 
-                }
-                else
-                {
-                    alert('Las contraseñas no coinciden')
-                }
-            }
-            else{
-                alert('Llene todos los campos')
-            }
-        }
+      function cargarArchivo(){
+        $('#file').parse({
+      		config: {
+			     delimiter: ",",
+			     complete: agregarRecetas,
+		      },
+      		before: function(file, inputElem)
+      		{
+      			console.log("Parsing file...", file);
+      		},
+      		error: function(err, file)
+      		{
+      			console.log("ERROR:", err, file);
+      		},
+      		complete: function()
+      		{
+            console.log("Done with all files");
+          }
+        });
+      }
 
-        function soloLetras(e) 
-        {
-            textoArea = document.getElementById("usuario").value;
-            var total = textoArea.length;
-            if (total == 0) 
-            {
-                key = e.keyCode || e.which;
-                tecla = String.fromCharCode(key).toString();
-                letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ"; //Se define todo el abecedario que se quiere que se muestre.
-                especiales = [8, 9, 37, 39, 46, 6]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
-                tecla_especial = false
-                for (var i in especiales) 
-                {
-                    if (key == especiales[i]) 
-                    {
-                        tecla_especial = true;
-                        break;
-                    }
-                }
-
-                if (letras.indexOf(tecla) == -1 && !tecla_especial)
-                {
-                    return false;
-                }
-
-            }
-            else if (total > 0) 
-            {
-                if (window.event) 
-                { //asignamos el valor de la tecla a keynum
-                    keynum = e.keyCode; //IE
-                } 
-                else
-                 {
-                    keynum = e.which; //FF
-                 }
-                //comprobamos si se encuentra en el rango numérico y que teclas no recibirá.
-                if ((keynum > 64 && keynum < 91) || (keynum > 47 && keynum < 58) || (keynum > 96 && keynum < 132) || keynum == 8 || keynum == 13 || keynum == 6) 
-                {
-                    return true;
-                }
-                else 
-                {
-                     return false;
-                }
-
+      async function agregarRecetas(results) {
+        console.log(results.data)
+        var data = results.data;
+        var val = true
+        for (i = 0; i < data.length; i++) {
+            var autor = data[i][0]
+            var titulo = data[i][1]
+            var resumen = data[i][2]
+            var ingredientes = data[i][3]
+            var procedimiento = data[i][4]
+            var tiempo = data[i][5]
+            var url = data[i][6]
+            var objeto = {
+                'autor': autor,
+                'titulo': titulo,
+                'resumen': resumen,
+                'ingredientes': ingredientes,
+                'procedimiento': procedimiento,
+                'tiempo': tiempo,
+                'url': url       
              }
-
-        }
+            console.log(objeto)
+            fetch('/dashboard/cargaMasiva', {
+            method: 'POST',
+            body: JSON.stringify(objeto),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+            }).then(res => res.json())
+            .catch(error => {
+                console.error('Error:', error)
+                alert("Ocurrio un error al consumir la API, revise la consola")
+                val = false
+            })
+            .then(response =>{
+                console.log('Success:', response);
+                location.reload()
+            }) 
+            }
+            if(val = true)
+            {
+                alert("Se agregaron las recetas correctamente")
+            }
+    }
     </script>
-   <!-- jquery latest version -->
-   <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
-   <!-- bootstrap 4 js -->
-   <script src="{{url_for('static', filename = 'assets/js/popper.min.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/bootstrap.min.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/owl.carousel.min.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/metisMenu.min.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/jquery.slimscroll.min.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/jquery.slicknav.min.js')}}"></script>
-   <!-- others plugins -->
-   <script src="{{url_for('static', filename = 'assets/js/plugins.js')}}"></script>
-   <script src="{{url_for('static', filename = 'assets/js/scripts.js')}}"></script>
+
+   
+    <!--PDF-->
+    <script src="{{url_for('static', filename = 'js/html2pdf.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/script.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script> 
+    <!-- bootstrap 4 js -->
+    <script src="{{url_for('static', filename = 'assets/js/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/metisMenu.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/jquery.slicknav.min.js')}}"></script>
+    <!-- others plugins -->
+    <script src="{{url_for('static', filename = 'assets/js/plugins.js')}}"></script>
+    <script src="{{url_for('static', filename = 'assets/js/scripts.js')}}"></script>
 </body>
 
 </html>

@@ -124,6 +124,10 @@ def dashboard():
 def recetasPublicadas():
     return render_template('dashboard/recetasPublicadas.html', nombre=session['nombre'], nrecetas=len(Recetas), recipes=Recetas)
 
+@app.route('/dashboard/recetaReporte')
+def reporteRecetas():
+    return render_template('dashboard/reporteRecetas.html', nombre=session['nombre'], nrecetas=len(Recetas), recipes=Recetas)
+
 @app.route('/dashboard/editarReceta/<string:ID>')
 def editarReceta(ID):
     temp=Recetas[int(ID)]
