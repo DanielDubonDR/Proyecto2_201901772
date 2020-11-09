@@ -180,6 +180,14 @@ def cargaMasiva():
 @app.route('/dashboard/agregarReacciones')
 def agregarReacciones():
     return render_template('dashboard/reacciones.html', nombre=session['nombre'], reacciones=Reacciones)
+
+@app.route('/dashboard/addReaccion', methods=['POST'])
+def addReacciones():
+    global nReaccion
+    s=Reaccion(str(nReaccion),request.json['reaccion'],request.json['url'],0)
+    nReaccion=nReaccion+1
+    Reacciones.append(s)
+    return jsonify({'message':'Se agrego las reacción'}) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):

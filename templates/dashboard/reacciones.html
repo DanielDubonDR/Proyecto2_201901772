@@ -152,6 +152,25 @@
             </div>
             <!-- page title area end -->
             <div class="main-content-inner">
+<!-- Server side start -->
+<div class="col-12">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h4 class="header-title">Agregar reacción</h4>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" id="reaccion" placeholder="Nombre de la reacción" required="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" id="url" placeholder="URL de icono, tamaño 18px" required="">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="add()" type="submit">Agregar</button>
+        </div>
+    </div>
+</div>
+<!-- Server side end -->
+
                <!-- Progress Table start -->
                     <div class="col-12 mt-5">
                         <div class="card">
@@ -188,7 +207,41 @@
                
         	</div>
         	<!-- main content area end -->
-
+    <script>
+        function add()
+	{
+		var reaccion = document.querySelector('#reaccion').value
+        var url = document.querySelector('#url').value
+		if(reaccion!="" && url!="")
+		{
+			var objeto = {
+                'reaccion':reaccion,
+                'url':url
+			}
+			console.log(objeto)
+			fetch('/dashboard/addReaccion', {
+			method: 'POST',
+			body: JSON.stringify(objeto), 
+			headers:{
+				'Content-Type': 'application/json'
+			} 
+			}).then(res => res.json())
+			.catch(error => {
+				console.error('Error:', error)
+				alert("Ocurrio un error")
+			})
+			.then(response =>{
+				console.log('Success:', response);
+				//alert(response.message)
+				//location.reload()
+				location.href="/dashboard/agregarReacciones"
+			}) 
+		}
+		else{
+			alert('Llene todos los campos')
+		}
+	}
+    </script>
     <!-- jquery latest version -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <!-- bootstrap 4 js -->
