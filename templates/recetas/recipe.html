@@ -112,6 +112,19 @@
 		</div>
 	</article>
 </div>
+
+{% else %}
+
+<div class="recipe-card">
+	<article>
+		{% for z in reacciones %}
+		<div class="btn-group mb-xl-3" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-sm btn-primary"><img src="{{z.icono}}"/>&nbsp{{z.reaccion}}&nbsp{{z.contador}}</button>
+		</div>
+		{% endfor %}
+	</article>
+</div>
+
 {% endif %}
 <div class="recipe-card">
 	<article>
@@ -170,7 +183,9 @@
 		
 
 			var objeto = {
-				'contador':s
+				'idReaccion':s,
+				'idReceta':"{{identificador}}",
+				'usuario':"{{uss}}"
 			}
 			console.log(objeto)
 			fetch('/reaccion/add', {

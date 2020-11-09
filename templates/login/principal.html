@@ -74,6 +74,7 @@
                 {% endfor %}
         </div>
     </section>
+    {% if uss == None %}
     <section class="questions contenedor">
         <section class="textos-questions">
             <h1>El mejor lugar para compartir recetas</h1>
@@ -82,19 +83,19 @@
         </section>
         <img src="{{url_for('static', filename = 'img/terceraIlustracion.svg')}}" alt="" data-aos="zoom-out-up" data-aos-duration="2000">
     </section>
-
+    {% endif %}
     <section class="results" id="d">
         <div class="contenedor1 conten-results">
             <section class="numbers">
                 <div class="number" data-aos="zoom-in-left">
-                    <h4>+8863</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, id.</p>
+                    <h4>Kak'ik</h4>
+                    <p>20 ME GUSTA</p>
                 </div>
             </section>
             <section class="results-text">
-                <h4>Recetas destacadas</h4>
+                <h4>Recetas destacada</h4>
                 <p>Recetas más apoyada por los usuarios.</p>
-                <a href="#">Ingrese aquí</a>
+                <a href="/receta/2">Ver Receta</a>
             </section>
         </div>
     </section>

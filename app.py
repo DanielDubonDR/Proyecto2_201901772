@@ -29,11 +29,19 @@ ingredientes1="Para la carne#1 kilo de pulpa de cerdo#1 litro de jugo de naranja
 "#Chile habanero#1 limón (el jugo)#Para las cebollas"\
 "#1 cebolla morada#4 cucharadas de aceite de oliva"\
 "#1/4 de taza de vinagre#1 cucharadita de orégano#Sal"
+ingredientes2="2 lb. de carne al gusto#1 chile guaque seco#2 onzas de ajonjolí#1 rajita de canela#1 chile pasa seco#4 tomates#2 onzas de pepitoria verde#1 cebolla#4 pimientas gordas#3 dientes de ajo#8 piezas de pan francés frío o harina de arroz#2 clavos de olor#½ Lb. de ejotes#½ Lb. de papas medianas#Sal y pimienta al gusto"
+preparacion2="Primero, para el Pepián Negro, colocar en una olla la carne a cocer dentro del litro del agua.#Antes de que esté en su punto, agregar las verduras para su cocimiento.#Entonces, aparte en un comal, poner a dorar los chiles, el miltomate, el tomate, la cebolla, el ajonjolí, pepitoria, los dientes de ajo, la rajita de canela y la cáscara de plátano.#Después de que todos los ingredientes se hayan dorado perfectamente, licuar con un poco del caldo donde se ha cocido la carne.#Luego, ese licuado se pone a hervir y espesar junto con el manojo de cilantro, por espacio de 30 minutos.#Seguidamente, dejar caer la carne y las verduras, para que los sabores se mezclen entre sí y se deja hervir hasta espesar.#Para el Pepián Rojo debe omitirse en chile guaque y la cáscara de plátano, y agregarle más tomate, achiote y chile pimiento.#Finalmente, puede acompañarse con arroz blanco y un par de deliciosas tortillas"
+ingredientes3="2 libras de pavo cortado en pedazos grandes#Media libra de tomate#4 onzas de miltomate#2 chiles guaques grandes#1 chile pasa grande#1 chile pimiento rojo grande#6 dientes de ajo grandes#1 cebolla mediana#4 ramas de cilantro"\
+"#10 ramas de hierbabuena#Media onza de ajonjolí#4 granos de pimienta gorda o pimienta de chapa#4 a 5 granos de pimienta#1 onza de pepitoria#Tallos de cebolla#Achiote#Sal#Chile cobanero en polvo"
+preparacion3="Primero, cocer el pavo con un poco de sal y un ramo hecho con tallos de cebolla, hierbabuena y cilantro en suficiente agua.#Asegurarse de que el agua cubra la carne ya que habrá de hervir y una parte se consumirá.#Para hacer el recado, primero dorar la pepitoria, el ajonjolí y los granos de pimienta."\
+"#Asar el chile pimiento, los chiles, ajo, cebolla, el tomate y el miltomate.#Luego, licuar en seco el recado y colarlo.#Retirar el ramo con el que se cocinó el pavo y agregar el recado."\
+"#Hervir durante 10 minutos y sazonar con un poco de sal, achiote y chile cobanero al gusto.#Cuidar que el pavo no se recueza.#Finalmente, servir en pedazos grandes con un poco de arroz, tortillas o tamalitos al gusto."
+
 resumen2="Es un platillo tradicional guatemalteco de origen kaqchiquel, propio del departamento de Chimaltenango. Su origen es prehispánico y se servía en las ceremonias religiosas mayas. El pepián es un recado que puede prepararse con costilla de res, carne de cerdo, con pollo, o una mezcla las distintas carnes."
 resumen3="El Kak’ik es conocido como caldo colorado de pavo o chunto, tradicional del departamento de Cobán, Guatemala. Es una comida ancestral de ascendencia prehispánica, por eso tiene el color rojo que rememora en alguna medida la sangre ritual de los antepasados en sus ceremonias."
 Recetas.append(Receta("0","Cochinita Pibil",resumen1,ingredientes1,preparacion1,"1 hora","https://dam.cocinafacil.com.mx/wp-content/uploads/2019/08/tacos-de-cochinita.jpg","Daniel","Comida Mexicana"))
-Recetas.append(Receta("1","Pepián",resumen2,"none","none","2 horas","https://img-global.cpcdn.com/recipes/c4361919b103df7a/1200x630cq70/photo.jpg","Reginaldo","Platillo típico"))
-Recetas.append(Receta("2","Kak'ik",resumen3,"none","none","1 hora y 30 minutos","https://i.pinimg.com/originals/25/00/39/25003904d6b783d8645206af2d936b2c.jpg", "Sulvey","Platillo tipico"))
+Recetas.append(Receta("1","Pepián",resumen2,ingredientes2,preparacion2,"2 horas","https://img-global.cpcdn.com/recipes/c4361919b103df7a/1200x630cq70/photo.jpg","Reginaldo","Platillo típico"))
+Recetas.append(Receta("2","Kak'ik",resumen3,ingredientes3,preparacion3,"1 hora y 30 minutos","https://i.pinimg.com/originals/25/00/39/25003904d6b783d8645206af2d936b2c.jpg", "Sulvey","Platillo tipico"))
 
 #--------------------------------------------------COMENTARIOS-----------------------------------------------------------
 x = datetime.datetime.now()
@@ -48,8 +56,15 @@ Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la preparar
 #---------------------------------------------------REACCIONES------------------------------------------------------------
 nReaccion=2
 Reacciones=[]
-Reacciones.append(Reaccion("0","ME GUSTA","https://img.icons8.com/color/18/000000/facebook-like.png", 0))
-Reacciones.append(Reaccion("1","NO ME GUSTA","https://img.icons8.com/color/18/000000/thumbs-down.png", 0))
+Reacciones.append(Reaccion("0","ME GUSTA","https://img.icons8.com/color/18/000000/facebook-like.png", 2, None))
+Reacciones.append(Reaccion("1","NO ME GUSTA","https://img.icons8.com/color/18/000000/thumbs-down.png", 1, None))
+
+dReactions=[]
+dReactions.append(Reaccion("0",None,None,None,"0"))
+dReactions.append(Reaccion("1",None,None,None,"0"))
+dReactions.append(Reaccion("1",None,None,None,"1"))
+dReactions.append(Reaccion("1",None,None,None,"1"))
+dReactions.append(Reaccion("1",None,None,None,"1"))
 
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
@@ -100,7 +115,7 @@ def verReceta(ID):
             autor=recipe.getAutor()
     if 'logueado' in session:
         return render_template('recetas/recipe.html', uss=session['logueado'], titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, nombre=session['nombre'], tippo=session['tipo'], coment=Comentarios, identificador=idd, reacciones=Reacciones )
-    return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, coment=Comentarios, identificador=idd)
+    return render_template('recetas/recipe.html',uss=None, titulo=title, resumen=resumen, ingredientes=ingredientes.split("#"), preparacion=preparacion.split("#"), imagen=imagen, categoria=categoria, tiempo=tiempo, autor=autor, coment=Comentarios, identificador=idd, reacciones=Reacciones)
 
 #-------------------------------------------------------------INGRESAR RECETA-------------------------------------------------------
 @app.route('/ingresarReceta')
@@ -118,7 +133,10 @@ def addReceta():
 #-------------------------------------------------------------DASHBOARD-------------------------------------------------------
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard/dashboard.html', nombre=session['nombre'], nrecetas=len(Recetas), nusuarios=len(Usuarios), ncomentarios=len(Comentarios))
+    a=0
+    for s in Reacciones:        
+        a+=s.getContador()
+    return render_template('dashboard/dashboard.html', nombre=session['nombre'], nrecetas=len(Recetas), nusuarios=len(Usuarios), ncomentarios=len(Comentarios), reactions=a)
 
 @app.route('/dashboard/recetasPublicadas')
 def recetasPublicadas():
@@ -188,16 +206,18 @@ def agregarReacciones():
 @app.route('/dashboard/addReaccion', methods=['POST'])
 def addReacciones():
     global nReaccion
-    s=Reaccion(str(nReaccion),request.json['reaccion'],request.json['url'],0)
+    s=Reaccion(str(nReaccion),request.json['reaccion'],request.json['url'],0, None)
     nReaccion=nReaccion+1
     Reacciones.append(s)
     return jsonify({'message':'Se agrego las reacción'}) 
 
 @app.route('/reaccion/add', methods=['POST'])
 def addReact():
-    N=request.json['contador']
-    a=Reacciones[int(N)].getContador()+1
-    Reacciones[int(N)].setContador(a)
+    aux=request.json['idReaccion']
+    r=Reacciones[int(aux)].getContador()+1
+    Reacciones[int(aux)].setContador(r)
+    s=Reaccion(request.json['idReaccion'],None,None,None,request.json['idReceta'])
+    dReactions.append(s)
     return jsonify({'message':'Se agrego las reacción'}) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])

@@ -1,7 +1,7 @@
 class Reaccion:
 
     #Constructor
-    def __init__(self, id, reaccion, icono, contador):
+    def __init__(self, id, reaccion, icono, contador, idReceta):
         self.id=id
         self.reaccion=reaccion
         self.icono=icono
@@ -11,7 +11,7 @@ class Reaccion:
     def getId(self):
         return self.id
     
-    def getUsuario(self):
+    def getReaccion(self):
         return self.reaccion
 
     def getContador(self):
@@ -19,6 +19,9 @@ class Reaccion:
     
     def getIcono(self):
         return self.icono
+
+    def getIdReceta(self):
+        return self.idReceta
 
     #Setter's
 
@@ -33,3 +36,6 @@ class Reaccion:
 
     def setIcono(self, icono):
         self.icono=icono
+
+    def setIdReceta(self, idReceta):
+        self.idReceta=idReceta
