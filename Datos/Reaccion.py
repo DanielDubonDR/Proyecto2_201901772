@@ -31,5 +31,5 @@ class Reaccion:
     def setContador(self, contador):
         self.contador=contador
 
-    def setContador(self, icono):
+    def setIcono(self, icono):
         self.icono=icono

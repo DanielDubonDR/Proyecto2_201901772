@@ -48,8 +48,8 @@ Comentarios.append(Comentario("2","Reginaldo","Me gusta esta receta, la preparar
 #---------------------------------------------------REACCIONES------------------------------------------------------------
 nReaccion=2
 Reacciones=[]
-Reacciones.append(Reaccion("0","ME GUSTA","https://img.icons8.com/color/18/000000/facebook-like.png", 1))
-Reacciones.append(Reaccion("1","NO ME GUSTA","https://img.icons8.com/color/18/000000/thumbs-down.png", 1))
+Reacciones.append(Reaccion("0","ME GUSTA","https://img.icons8.com/color/18/000000/facebook-like.png", 0))
+Reacciones.append(Reaccion("1","NO ME GUSTA","https://img.icons8.com/color/18/000000/thumbs-down.png", 0))
 
 #--------------------------------------------------FUNCIONES-----------------------------------------------------------
 def validarCredenciales(user, password):
@@ -191,6 +191,13 @@ def addReacciones():
     s=Reaccion(str(nReaccion),request.json['reaccion'],request.json['url'],0)
     nReaccion=nReaccion+1
     Reacciones.append(s)
+    return jsonify({'message':'Se agrego las reacción'}) 
+
+@app.route('/reaccion/add', methods=['POST'])
+def addReact():
+    N=request.json['contador']
+    a=Reacciones[int(N)].getContador()+1
+    Reacciones[int(N)].setContador(a)
     return jsonify({'message':'Se agrego las reacción'}) 
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])

@@ -96,7 +96,7 @@
 	<article>
 		{% for z in reacciones %}
 		<div class="btn-group mb-xl-3" role="group" aria-label="Basic example">
-			<button type="button" class="btn btn-sm btn-primary"><img src="{{z.icono}}"/>&nbsp{{z.reaccion}}</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="addReaccion('{{z.id}}')"><img src="{{z.icono}}"/>&nbsp{{z.reaccion}}&nbsp{{z.contador}}</button>
 		</div>
 		{% endfor %}
 	</article>
@@ -163,6 +163,35 @@
 		else{
 			alert('Llene todos los campos')
 		}
+	}
+
+	function addReaccion(s)
+	{
+		
+
+			var objeto = {
+				'contador':s
+			}
+			console.log(objeto)
+			fetch('/reaccion/add', {
+			method: 'POST',
+			body: JSON.stringify(objeto), 
+			headers:{
+				'Content-Type': 'application/json'
+			} 
+			}).then(res => res.json())
+			.catch(error => {
+				console.error('Error:', error)
+				alert("Ocurrio un error")
+			})
+			.then(response =>{
+				console.log('Success:', response);
+				//alert(response.message)
+				location.reload()
+				//location.href="/receta/{{identificador}}"
+			}) 
+		
+		
 	}
 </script>
 </body>
