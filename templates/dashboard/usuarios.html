@@ -148,6 +148,7 @@
                     </div>
                 </div>
             </div>
+        <div id="cuerpo">
             <!-- page title area end -->
             <div class="main-content-inner">
                  <!-- seo fact area start -->
@@ -204,12 +205,22 @@
                         </div>
                     </div>
                     <!-- Progress Table end --> 
-               
+            </div>
+        </div>
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" id="rpt" class="btn btn-info btn-lg btn-block">Generar Reporte</button>
+                            </div>
+                        </div>
+                    </div>
                
                
         	</div>
         	<!-- main content area end -->
-
+    <!--PDF-->
+    <script src="{{url_for('static', filename = 'js/html2pdf.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/script.js')}}"></script>
     <!-- jquery latest version -->
     <script src="{{url_for('static', filename = 'assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <!-- bootstrap 4 js -->
