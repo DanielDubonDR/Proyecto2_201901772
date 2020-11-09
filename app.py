@@ -219,6 +219,13 @@ def addReact():
     s=Reaccion(request.json['idReaccion'],None,None,None,request.json['idReceta'])
     dReactions.append(s)
     return jsonify({'message':'Se agrego las reacción'}) 
+
+@app.route('/dashboard/reacciones/eliminar/<string:ID>')
+def eliminarReaccion(ID):
+    for i in range(len(Reacciones)):
+        if ID == Reacciones[i].getId():
+            del Reacciones[i]
+            return redirect("/dashboard/agregarReacciones")
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):

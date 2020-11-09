@@ -52,7 +52,6 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-cta-center "></i><span>Recetas</span></a>
                                 <ul class="collapse">
                                     <li><a href="/dashboard/recetasPublicadas">Recetas Publicadas</a></li>
-                                    
                                     <li><a href="/dashboard/recetaReporte">Generar reporte de recetas</a></li>
                                 </ul>
                             </li>
@@ -60,7 +59,7 @@
                             <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-thumb-up "></i><span>Reacciones</span></a>
                                 <ul class="collapse">
-                                    <li><a href="reacciones.html">Ver reacciones</a></li>
+                                    
                                     <li class="active"><a href="/dashboard/agregarReacciones">Agregar reacciones</a></li>
                                 </ul>
                             </li>
@@ -184,6 +183,7 @@
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Reacción</th>
                                                     <th scope="col">Icono</th>
+                                                    <th scope="col">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -192,6 +192,7 @@
                                                     <td>{{s.id}}</td>
                                                     <td>{{s.reaccion}}</td>
                                                     <td><img src="{{s.icono}}"/></td>
+                                                    <td><a href="/dashboard/reacciones/eliminar/{{s.id}}" class="text-danger"><i class="ti-trash"></i></a></td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
