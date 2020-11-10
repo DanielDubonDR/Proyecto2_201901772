@@ -50,24 +50,13 @@
                 </div>
             </section>
         </nav>
-        {% if uss == None %}
-        <div class="contenedor">
-            <section class="contenido-header">
-                <section class="textos-header">
-                    <h1>CUK - Recetas de Cocina</h1>
-                    <p>La cocina al alcance de todos, no tendras excusas para preparar un platillo, el mejor recetario web que podrás encontrar.</p>
-                </section>
-                <img src="{{url_for('static', filename = 'img/primeraIlustracion.svg')}}" alt="">
-            </section>
-        </div>
-        {% endif %}
     </header>
    
     <section class="about-us" id="r">
         <div class="contenedor1">
             <div class="search-box">
-                <input class="search-txt"  id="palabra" type="text" placeholder="Buscar">
-                <a class="search-btn" onclick="buscar()">
+                <input class="search-txt" id="palabra" type="text" placeholder="Buscar">
+                <a class="search-btn"  onclick="buscar()">
                     <i class="fas fa-search"></i>
                 </a>
             </div>
@@ -76,12 +65,56 @@
             <h2 class="titulo">Recetas Publicadas   </h2>
             <div class="contenedor-articulo">
                 {% for Receta in Recetas %}
+                    {% if buscar in Receta.titulo.lower() %}
                 <div class="articulo" data-aos="zoom-in-right">
                     <img src={{Receta.imagen}} alt="" class="image">
                     <h3>{{Receta.titulo}}</h3>
                     <p>{{Receta.resumen}}</p>
                     <a href="/receta/{{Receta.id}}">Ver receta</a>
                 </div>
+                {% elif buscar in Receta.resumen.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% elif buscar in Receta.preparacion.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% elif buscar in Receta.autor.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% elif buscar in Receta.ingredientes.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% elif buscar in Receta.tiempo.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% elif buscar in Receta.categoria.lower() %}
+                <div class="articulo" data-aos="zoom-in-right">
+                    <img src={{Receta.imagen}} alt="" class="image">
+                    <h3>{{Receta.titulo}}</h3>
+                    <p>{{Receta.resumen}}</p>
+                    <a href="/receta/{{Receta.id}}">Ver receta</a>
+                </div>
+                {% endif %}
                 {% endfor %}
         </div>
     </section>

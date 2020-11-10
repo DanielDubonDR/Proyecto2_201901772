@@ -90,6 +90,21 @@ def home():
         return render_template('login/principal.html', Recetas=Recetas, uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'])
     return render_template('login/principal.html', Recetas=Recetas, uss=None)
 
+buscar=""
+
+@app.route('/recetas/buscar', methods=['POST'])
+def buscar():
+    global buscar
+    buscar=request.json['buscar']
+    print(buscar)
+    return jsonify({'message':'Se recibio la peticion'})
+
+@app.route('/recetas/search')
+def search():
+    if 'logueado' in session:
+        return render_template('login/busqueda.html', Recetas=Recetas, uss=session['logueado'], nombre=session['nombre'], tippo=session['tipo'], buscar=buscar)
+    return render_template('login/busqueda.html', Recetas=Recetas, uss=None, buscar=buscar)
+
 
 #------------------------------------------------------CARGAR RECETA DETALLADA-----------------------------------------------------
 @app.route('/receta/<string:ID>')
