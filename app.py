@@ -226,6 +226,10 @@ def eliminarReaccion(ID):
         if ID == Reacciones[i].getId():
             del Reacciones[i]
             return redirect("/dashboard/agregarReacciones")
+
+@app.route('/dashboard/estadistica')
+def estadistica():
+    return render_template('dashboard/dashboardReacciones.html', nombre=session['nombre'], reacciones=Reacciones)
 #---------------------------------------------------COMENTARIO------------------------------------------------
 @app.route('/comentario/add/<string:ID>', methods=['POST'])
 def addComentario(ID):
