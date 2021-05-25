@@ -13,4 +13,6 @@ Se desarrolo en la version de python 3.8
  
 - Para ejecutar el proyecto cree un entorno virtual e instale los paquetes contenidos en el archivo "requirements.txt" o bien haga uso del siguiente comando para instalarlos: `pip install -r requirements.txt`
 
+- Para mas información acerca del proyecto revise la documentación.
+
 **_201901772-Daniel Reginaldo Dubón Rodríguez_**
